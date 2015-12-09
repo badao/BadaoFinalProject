@@ -39,6 +39,7 @@ namespace Anti_Rito
             if (Utils.GameTimeTickCount - LastSpell.CastTick < 50)
             {
                 args.Process = false;
+                BlockedCount += 1;
             }
             else
             {
