@@ -21,7 +21,7 @@ namespace Anti_Rito
                 {
                     if (Config.config.SubMenu(Config.OneSpell.Name).Item("Drawing").GetValue<bool>())
                     {
-                        Drawing.DrawText(Drawing.Width - 180, 100, System.Drawing.Color.Lime, "Blocked " + BlockedCount + " clicks");
+                        Drawing.DrawText(Drawing.Width - 180, 100, System.Drawing.Color.Lime, "Blocked " + BlockedCount + " Spells");
                     }
                 };
         }
