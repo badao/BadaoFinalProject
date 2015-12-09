@@ -51,7 +51,7 @@ namespace Anti_Rito
                 LastSpellCast spell = LastSpellsCast.FirstOrDefault(x => x.Slot == args.Slot);
                 if (spell != null)
                 {
-                    if (Utils.GameTimeTickCount - spell.CastTick <= 250)
+                    if (Utils.GameTimeTickCount - spell.CastTick <= 250 + Game.Ping)
                     {
                         args.Process = false;
                         BlockedCount += 1;
