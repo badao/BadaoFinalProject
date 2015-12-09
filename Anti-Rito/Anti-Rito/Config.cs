@@ -17,6 +17,7 @@ namespace Anti_Rito
             config = new Menu("Anti-Rito","Anti-Rito", true);
             OneSpell = config.AddSubMenu(new Menu("OneSpellOneTick", "OneSpellOneTick"));
             OneSpell.AddItem(new MenuItem("Enable","Enable").SetValue(true));
+            OneSpell.AddItem(new MenuItem("Drawing", "Draw Block Count").SetValue(true));
             //OneSpell.AddItem(new MenuItem("Recast", "Re-cast blocked spell after a delay?").SetValue(true));
             config.AddToMainMenu();
         }

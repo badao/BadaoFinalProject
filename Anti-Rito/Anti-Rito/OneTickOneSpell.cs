@@ -13,9 +13,17 @@ namespace Anti_Rito
     {
         public static Obj_AI_Hero Player { get{ return ObjectManager.Player; } }
         public static LastSpellCast LastSpell = new LastSpellCast();
+        public static int BlockedCount = 0;
         public static void Init()
         {
             Spellbook.OnCastSpell += Spellbook_OnCastSpell;
+            Drawing.OnDraw += onDrawArgs =>
+                {
+                    if (Config.config.SubMenu(Config.OneSpell.Name).Item("Drawing").GetValue<bool>())
+                    {
+                        Drawing.DrawText(Drawing.Width - 180, 100, System.Drawing.Color.Lime, "Blocked " + BlockedCount + " clicks");
+                    }
+                };
         }
 
         private static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)

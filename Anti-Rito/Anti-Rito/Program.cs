@@ -18,6 +18,7 @@ namespace Anti_Rito
 
         private static void Game_OnGameLoad(EventArgs args)
         {
+            Config.Init();
             OneTickOneSpell.Init();
             Game.PrintChat("Anti-Riot by Sebby and Badao Loaded!");
         }
