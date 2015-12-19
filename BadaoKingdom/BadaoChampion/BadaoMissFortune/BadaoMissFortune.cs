@@ -12,9 +12,6 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 {
     public static class BadaoMissFortune
     {
-        private static int createtime;
-        private static int processtime;
-
         public static void BadaoActivate()
         {
             BadaoMissFortuneConfig.BadaoActivate();
