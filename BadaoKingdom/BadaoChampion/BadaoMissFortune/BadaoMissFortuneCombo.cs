@@ -21,6 +21,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 
         private static void Orbwalking_OnAttack(AttackableUnit unit, AttackableUnit target)
         {
+            if (!unit.IsMe && BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+                return;
+            if (BadaoMissFortuneHelper.UseWCombo() && target.BadaoIsValidTarget() && target is Obj_AI_Hero)
+            {
+                BadaoMainVariables.W.Cast();
+            }
         }
 
         private static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
