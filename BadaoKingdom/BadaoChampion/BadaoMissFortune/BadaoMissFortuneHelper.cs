@@ -118,12 +118,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             CenterEnd = ObjectManager.Player.Position.To2D().Extend(CastPos, 1400);
             Vector2 Rangestraight = ObjectManager.Player.Position.To2D().Extend(CastPos, ObjectManager.Player.BoundingRadius
                                                                                 + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius);
-            x1 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(), 
-                (float)Math.PI * (goc / 2f + 90f) / 180f - (float)Math.Acos(TargetToCheck.BoundingRadius / 
-                (ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius)));
-            x2 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(),
-                -((float)Math.PI * (goc / 2f + 90f) / 180f - (float)Math.Acos(TargetToCheck.BoundingRadius /
-                (ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius))));
+            float goc2rad = (float)Math.PI * (goc / 2f + 90f) / 180f - (float)Math.Acos(TargetToCheck.BoundingRadius /
+                (ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius));
+            x1 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(), goc2rad);
+            x2 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(), -goc2rad);
         }
         //compare damage 
         public static bool Rdamepior()
