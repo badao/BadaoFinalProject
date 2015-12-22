@@ -102,5 +102,38 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             }
             return BadaoMainVariables.Q.GetDamage(target, 1);
         }
+        public static float RDamage(Obj_AI_Base target)
+        {
+            return (float)(new double[] { 12, 14, 16 }[BadaoMainVariables.R.Instance.Level - 1] * BadaoMainVariables.R.GetDamage(target)
+                                  * (1 + ObjectManager.Player.Crit * 0.2));
+        }
+        public static void RPrediction(Vector2 CastPos, Obj_AI_Base TargetToCheck, out Vector2 CenterPolar, out Vector2 CenterEnd, out Vector2 x1, out Vector2 x2)
+        {
+            //changeable
+            float goc = 36f;
+            //process
+            float goc1rad = (float)Math.PI * (90f - goc / 2f) / 180f;
+            float backward = TargetToCheck.BoundingRadius / (float)Math.Cos(goc1rad);
+            CenterPolar = ObjectManager.Player.Position.To2D().Extend(CastPos, -backward);
+            CenterEnd = ObjectManager.Player.Position.To2D().Extend(CastPos, 1400);
+            Vector2 Rangestraight = ObjectManager.Player.Position.To2D().Extend(CastPos, ObjectManager.Player.BoundingRadius
+                                                                                + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius);
+            x1 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(), 
+                (float)Math.PI * (goc / 2f + 90f) / 180f - (float)Math.Acos(TargetToCheck.BoundingRadius / 
+                (ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius)));
+            x2 = BadaoChecker.BadaoRotateAround(Rangestraight, ObjectManager.Player.Position.To2D(),
+                -((float)Math.PI * (goc / 2f + 90f) / 180f - (float)Math.Acos(TargetToCheck.BoundingRadius /
+                (ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + TargetToCheck.BoundingRadius))));
+        }
+        //compare damage 
+        public static bool Rdamepior()
+        {
+            float Rdame = (float)(new double[] { 12, 14, 16 }[BadaoMainVariables.R.Instance.Level - 1] * BadaoMainVariables.R.GetDamage(ObjectManager.Player)
+                                  * (1 + ObjectManager.Player.Crit * 0.2));
+            float Playerdame = (float)Damage.CalcDamage(ObjectManager.Player, ObjectManager.Player, Damage.DamageType.Physical,
+                                                 ObjectManager.Player.TotalAttackDamage * 3 / ObjectManager.Player.AttackDelay)
+                               + (BadaoMainVariables.Q.IsReady() ? BadaoMainVariables.Q.GetDamage(ObjectManager.Player) : 0);
+            return Rdame > Playerdame;
+        }
     }
 }

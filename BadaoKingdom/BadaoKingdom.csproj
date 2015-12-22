@@ -61,6 +61,7 @@
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneCombo.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneConfig.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneTapTarget.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneVariables.cs" />
     <Compile Include="BadaoChecker.cs" />
     <Compile Include="BadaoMainVariables.cs" />

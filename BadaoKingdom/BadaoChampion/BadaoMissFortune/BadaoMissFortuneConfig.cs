@@ -19,8 +19,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMainVariables.Q = new Spell(SpellSlot.Q, 650);
             BadaoMainVariables.Q.SetTargetted(0.25f, 1400);
             BadaoMainVariables.W = new Spell(SpellSlot.W); 
-            BadaoMainVariables.W = new Spell(SpellSlot.E, 1000); // radius 200
-            BadaoMainVariables.W = new Spell(SpellSlot.R, 1400); // chua biet goc
+            BadaoMainVariables.E = new Spell(SpellSlot.E, 1000); // radius 200
+            BadaoMainVariables.R = new Spell(SpellSlot.R, 1400); // chua biet goc
 
             // main menu
             config = new Menu("BadaoKingdom " + ObjectManager.Player.ChampionName, ObjectManager.Player.ChampionName, true);

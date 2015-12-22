@@ -19,6 +19,9 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         public static MenuItem ComboR;
 
         // #
-        public static Obj_AI_Hero TapTarget = null;
+        public static Obj_AI_Base TapTarget = null;
+        public static Obj_AI_Hero TargetRChanneling = null;
+        public static Vector2 CenterPolar = new Vector2();
+        public static Vector2 CenterEnd = new Vector2();
     }
 }
