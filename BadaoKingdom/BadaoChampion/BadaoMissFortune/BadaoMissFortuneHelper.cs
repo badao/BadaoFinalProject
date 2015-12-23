@@ -30,11 +30,29 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             return BadaoMainVariables.R.IsReady() && BadaoMissFortuneVariables.ComboR.GetValue<bool>();
         }
         // damage caculation
+        public static float GetAADamage(Obj_AI_Hero target)
+        {
+            if (BadaoMissFortuneVariables.TapTarget.BadaoIsValidTarget() && target.BadaoIsValidTarget() &&
+                target.NetworkId == BadaoMissFortuneVariables.TapTarget.NetworkId)
+                return (float)Damage.CalcDamage(ObjectManager.Player, target, Damage.DamageType.Physical,
+                                 ObjectManager.Player.TotalAttackDamage);
+            else
+                return (float)Damage.CalcDamage(ObjectManager.Player, target, Damage.DamageType.Physical,
+                                     ObjectManager.Player.TotalAttackDamage)
+                       + (float)Damage.CalcDamage(ObjectManager.Player, target, Damage.DamageType.Physical,
+                         (new double[] { 0.6, 0.6, 0.6, 0.7, 0.7, 0.7, 0.8, 0.8, 0.9, 0.9, 1 }
+                         [ObjectManager.Player.Level > 11 ? 10 : ObjectManager.Player.Level - 1]
+                         * ObjectManager.Player.TotalAttackDamage));
+        }
         public static float Q1Damage(Obj_AI_Base target)
         {
-            if(BadaoMissFortuneVariables.TapTarget.BadaoIsValidTarget() && target.BadaoIsValidTarget() &&
-                target.NetworkId == BadaoMissFortuneVariables.TapTarget.NetworkId)
+            if (target.BadaoIsValidTarget())
             {
+                if (BadaoMissFortuneVariables.TapTarget.BadaoIsValidTarget() &&
+                    target.NetworkId == BadaoMissFortuneVariables.TapTarget.NetworkId)
+                {
+                    return BadaoMainVariables.Q.GetDamage(target);
+                }
                 if (target is Obj_AI_Minion)
                 {
                     return
@@ -44,17 +62,18 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                         [ObjectManager.Player.Level > 11 ? 10 : ObjectManager.Player.Level - 1]
                         * ObjectManager.Player.TotalAttackDamage * 0.5f));
                 }
-                if(target is Obj_AI_Hero)
+                if (target is Obj_AI_Hero)
                 {
                     return
                         BadaoMainVariables.Q.GetDamage(target)
-                        + (float)Damage.CalcDamage(ObjectManager.Player, target, Damage.DamageType.Physical, 
+                        + (float)Damage.CalcDamage(ObjectManager.Player, target, Damage.DamageType.Physical,
                         (new double[] { 0.6, 0.6, 0.6, 0.7, 0.7, 0.7, 0.8, 0.8, 0.9, 0.9, 1 }
                         [ObjectManager.Player.Level > 11 ? 10 : ObjectManager.Player.Level - 1]
                         * ObjectManager.Player.TotalAttackDamage));
                 }
+                return BadaoMainVariables.Q.GetDamage(target);
             }
-            return BadaoMainVariables.Q.GetDamage(target);
+            return 0;
         }
         public static float Q2Damage(Obj_AI_Base target, bool dead = false)
         {

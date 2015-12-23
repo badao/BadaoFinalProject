@@ -21,7 +21,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 
         private static void Orbwalking_OnAttack(AttackableUnit unit, AttackableUnit target)
         {
-            if (!unit.IsMe && BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+            if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
             if (BadaoMissFortuneHelper.UseWCombo() && target.BadaoIsValidTarget() && target is Obj_AI_Hero)
             {
@@ -38,7 +38,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 target is Obj_AI_Hero && BadaoMissFortuneHelper.Rdamepior() 
                 && target.Health <= 0.6f*BadaoMissFortuneHelper.RDamage(target as Obj_AI_Base))
             {
-                var PredTarget = Prediction.GetPrediction(target as Obj_AI_Base, 0.25f);
+                float reactiontime = 0.5f;
+                var PredTarget = Prediction.GetPrediction(target as Obj_AI_Base, 0.25f + Game.Ping/1000f);
                 Vector2 x1 = new Vector2();
                 Vector2 x2 = new Vector2();
                 Vector2 CenterPolar = new Vector2();
@@ -50,8 +51,9 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 Obj_AI_Hero Target = target as Obj_AI_Hero;
                 if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
                     (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
-                    (dis1 >= dis2 && (dis1 / Target.MoveSpeed >= 1 ||
-                    BadaoMissFortuneHelper.RDamage(Target) * dis2 / Target.MoveSpeed / 3 >= Target.Health))))
+                    (dis1 >= dis2 && (dis2 / Target.MoveSpeed >= 0.6f * 3f - reactiontime ||
+                    BadaoMissFortuneHelper.RDamage(Target) * (dis2 / Target.MoveSpeed + reactiontime)/ 3f >= Target.Health
+                    - BadaoMissFortuneHelper.GetAADamage(Target)))))
                 {
                     BadaoMainVariables.R.Cast(PredTarget.UnitPosition.To2D());
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
@@ -60,8 +62,9 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 }
                 else if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
                         (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
-                        (dis2 >= dis1 && (dis2 / Target.MoveSpeed >= 1 ||
-                        BadaoMissFortuneHelper.RDamage(Target)* dis2 / Target.MoveSpeed/3 >= Target.Health))))
+                        (dis2 >= dis1 && (dis1 / Target.MoveSpeed >= 0.6f * 3f - reactiontime ||
+                        BadaoMissFortuneHelper.RDamage(Target)* (dis1 / Target.MoveSpeed + reactiontime)/3f >= Target.Health
+                        - BadaoMissFortuneHelper.GetAADamage(Target)))))
                 {
                     BadaoMainVariables.R.Cast(PredTarget.UnitPosition.To2D());
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;

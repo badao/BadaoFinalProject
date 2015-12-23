@@ -7,17 +7,17 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
-
 namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 {
-    public static class BadaoMissFortune
+    class BadaoMissFortuneDrawing
     {
         public static void BadaoActivate()
         {
-            BadaoMissFortuneConfig.BadaoActivate();
-            BadaoMissFortuneTapTarget.BadaoActivate();
-            BadaoMissFortuneCombo.BadaoActivate();
-            BadaoMissFortuneDrawing.BadaoActivate();
+            Drawing.OnDraw += Drawing_OnDraw;
+        }
+
+        private static void Drawing_OnDraw(EventArgs args)
+        {
         }
     }
 }
