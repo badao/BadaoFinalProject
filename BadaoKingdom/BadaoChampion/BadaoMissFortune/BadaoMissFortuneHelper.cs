@@ -149,6 +149,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                   * (1 + ObjectManager.Player.Crit * 0.2));
             float Playerdame = (float)Damage.CalcDamage(ObjectManager.Player, ObjectManager.Player, Damage.DamageType.Physical,
                                                  ObjectManager.Player.TotalAttackDamage * 3 / ObjectManager.Player.AttackDelay)
+                                                 * (1 + ObjectManager.Player.Crit)
                                + (BadaoMainVariables.Q.IsReady() ? BadaoMainVariables.Q.GetDamage(ObjectManager.Player) : 0);
             return Rdame > Playerdame;
         }

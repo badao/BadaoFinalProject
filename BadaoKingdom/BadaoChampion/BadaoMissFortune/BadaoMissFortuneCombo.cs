@@ -78,14 +78,29 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
             // cancle R
-            if (ObjectManager.Player.IsChannelingImportantSpell() &&
-                (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
-                !BadaoChecker.BadaoInTheCone(BadaoMissFortuneVariables.TargetRChanneling.Position.To2D(),
-                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-            // stop from canceling R
             if (ObjectManager.Player.IsChannelingImportantSpell())
-                return;
+            {
+                var targetR = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
+                if (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
+                    !BadaoChecker.BadaoInTheCone(BadaoMissFortuneVariables.TargetRChanneling.Position.To2D(),
+                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36))
+                {
+                    if ((targetR.BadaoIsValidTarget() && !BadaoChecker.BadaoInTheCone(targetR.Position.To2D(),
+                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36) &&
+                    targetR.Position.To2D().Distance(ObjectManager.Player.Position.To2D()) <=
+                    ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + targetR.BoundingRadius) ||
+                    !HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                    BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                    {
+                        ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                    }
+                    else
+                        return;
+                }
+                else
+                    return;
+            }
             // Q logic
             if (BadaoMissFortuneHelper.UseQCombo() && Orbwalking.CanMove(80))
             {
@@ -106,7 +121,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(hero, SpellSlot.Q) >= hero.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40))
                             {
                                 if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
@@ -122,7 +137,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40))
                             {
                                 if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
@@ -175,7 +190,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(hero, SpellSlot.Q) >= hero.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 20) &&
                                 !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
                                 BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
@@ -196,7 +211,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 20) &&
                                 !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
                                 x.NetworkId != minion.NetworkId &&
@@ -262,7 +277,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(hero, SpellSlot.Q) >= hero.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40) &&
                                 !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
                                 BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
@@ -283,7 +298,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                                     ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
                             Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
                                 ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                            if (ObjectManager.Player.GetSpellDamage(minion, SpellSlot.Q) >= minion.Health &&
+                            if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
                                 BadaoChecker.BadaoInTheCone(PredTargetQ.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40) &&
                                 !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
                                 x.NetworkId != minion.NetworkId &&
