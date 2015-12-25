@@ -13,9 +13,13 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
     class BadaoMissFortuneHelper
     {
         // can use skill
-        public static bool UseQCombo()
+        public static bool UseQ1Combo()
         {
-            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.ComboQ.GetValue<bool>();
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.ComboQ1.GetValue<bool>();
+        }
+        public static bool UseQ2Combo()
+        {
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.ComboQ2.GetValue<bool>();
         }
         public static bool UseWCombo()
         {
@@ -28,6 +32,30 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         public static bool UseRCombo()
         {
             return BadaoMainVariables.R.IsReady() && BadaoMissFortuneVariables.ComboR.GetValue<bool>();
+        }
+        public static bool UseQ1Harass()
+        {
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.HarassQ1.GetValue<bool>();
+        }
+        public static bool UseQ2Harass()
+        {
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.HarassQ2.GetValue<bool>();
+        }
+        public static bool UseEHarass()
+        {
+            return BadaoMainVariables.E.IsReady() && BadaoMissFortuneVariables.HarassE.GetValue<bool>();
+        }
+        public static bool UseQLaneClear()
+        {
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.LaneClearQ.GetValue<bool>();
+        }
+        public static bool UseWLaneClear()
+        {
+            return BadaoMainVariables.W.IsReady() && BadaoMissFortuneVariables.LaneClearW.GetValue<bool>();
+        }
+        public static bool UseELaneClear()
+        {
+            return BadaoMainVariables.E.IsReady() && BadaoMissFortuneVariables.LaneClearE.GetValue<bool>();
         }
         // damage caculation
         public static float GetAADamage(Obj_AI_Hero target)

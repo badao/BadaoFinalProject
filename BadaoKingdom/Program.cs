@@ -24,7 +24,13 @@ namespace BadaoKingdom
         private static void Game_OnGameLoad(EventArgs args)
         {
             if (!SupportedChampion.Contains(ObjectManager.Player.ChampionName))
+            {
+                Game.PrintChat("<font color=\"#24ff24\">BadaoKingdom </font>" + "<font color=\"#ff8d1a\">" +
+                    ObjectManager.Player.ChampionName + "</font>" + "<font color=\"#24ff24\"> not supported!</font>");
                 return;
+            }
+            Game.PrintChat("<font color=\"#24ff24\">BadaoKingdom </font>" + "<font color=\"#ff8d1a\">" + 
+                ObjectManager.Player.ChampionName + "</font>" + "<font color=\"#24ff24\"> loaded!</font>");
             BadaoChampionActivate();
             BadaoUtility.BadaoActivator.BadaoActivator.BadaoActivate();
         }

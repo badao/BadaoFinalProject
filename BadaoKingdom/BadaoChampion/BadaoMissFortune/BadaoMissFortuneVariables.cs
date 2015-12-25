@@ -13,10 +13,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
     public static class BadaoMissFortuneVariables
     {
         // menu
-        public static MenuItem ComboQ;
+        public static MenuItem ComboQ1;
+        public static MenuItem ComboQ2;
         public static MenuItem ComboW;
         public static MenuItem ComboE;
         public static MenuItem ComboR;
+
+        public static MenuItem HarassQ1;
+        public static MenuItem HarassQ2;
+        public static MenuItem HarassE;
+
+        public static MenuItem LaneClearQ;
+        public static MenuItem LaneClearW;
+        public static MenuItem LaneClearE;
 
         // #
         public static Obj_AI_Base TapTarget = null;

@@ -18,6 +18,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMissFortuneTapTarget.BadaoActivate();
             BadaoMissFortuneCombo.BadaoActivate();
             BadaoMissFortuneDrawing.BadaoActivate();
+            BadaoMissFortuneHarass.BadaoActivate();
+            BadaoMissFortuneLaneClear.BadaoActivate();
         }
     }
 }

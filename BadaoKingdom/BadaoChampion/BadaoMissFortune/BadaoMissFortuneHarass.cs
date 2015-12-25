@@ -10,99 +10,18 @@ using Color = System.Drawing.Color;
 
 namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 {
-    public static class BadaoMissFortuneCombo
+    class BadaoMissFortuneHarass
     {
         public static void BadaoActivate()
         {
-            Game.OnUpdate += Game_OnUpdate; // Q,E
-            Orbwalking.AfterAttack += Orbwalking_AfterAttack; // R
-            Orbwalking.OnAttack += Orbwalking_OnAttack; // W
+            Game.OnUpdate += Game_OnUpdate;
         }
 
-        private static void Orbwalking_OnAttack(AttackableUnit unit, AttackableUnit target)
-        {
-            if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
-                return;
-            if (BadaoMissFortuneHelper.UseWCombo() && target.BadaoIsValidTarget() && target is Obj_AI_Hero)
-            {
-                BadaoMainVariables.W.Cast();
-            }
-        }
-
-        private static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
-        {
-            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
-                return;
-            if (BadaoMissFortuneHelper.UseRCombo() && unit.IsMe 
-                && target.BadaoIsValidTarget() &&
-                target is Obj_AI_Hero && BadaoMissFortuneHelper.Rdamepior() 
-                && target.Health <= 0.6f*BadaoMissFortuneHelper.RDamage(target as Obj_AI_Base))
-            {
-                float reactiontime = 0.5f;
-                var PredTarget = Prediction.GetPrediction(target as Obj_AI_Base, 0.25f + Game.Ping/1000f);
-                Vector2 x1 = new Vector2();
-                Vector2 x2 = new Vector2();
-                Vector2 CenterPolar = new Vector2();
-                Vector2 CenterEnd = new Vector2();
-                BadaoMissFortuneHelper.RPrediction(PredTarget.UnitPosition.To2D(), target as Obj_AI_Base,
-                    out CenterPolar, out CenterEnd, out x1, out x2);
-                float dis1 = PredTarget.UnitPosition.To2D().Distance(x1);
-                float dis2 = PredTarget.UnitPosition.To2D().Distance(x2);
-                Obj_AI_Hero Target = target as Obj_AI_Hero;
-                if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
-                    (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
-                    (dis1 >= dis2 && (dis2 / Target.MoveSpeed >= 0.6f * 3f - reactiontime ||
-                    BadaoMissFortuneHelper.RDamage(Target) * (dis2 / Target.MoveSpeed + reactiontime)/ 3f >= Target.Health
-                    - BadaoMissFortuneHelper.GetAADamage(Target)))))
-                {
-                    BadaoMainVariables.R.Cast(PredTarget.UnitPosition.To2D());
-                    BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
-                    BadaoMissFortuneVariables.CenterPolar = CenterPolar;
-                    BadaoMissFortuneVariables.CenterEnd = CenterEnd;
-                }
-                else if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
-                        (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
-                        (dis2 >= dis1 && (dis1 / Target.MoveSpeed >= 0.6f * 3f - reactiontime ||
-                        BadaoMissFortuneHelper.RDamage(Target)* (dis1 / Target.MoveSpeed + reactiontime)/3f >= Target.Health
-                        - BadaoMissFortuneHelper.GetAADamage(Target)))))
-                {
-                    BadaoMainVariables.R.Cast(PredTarget.UnitPosition.To2D());
-                    BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
-                    BadaoMissFortuneVariables.CenterPolar = CenterPolar;
-                    BadaoMissFortuneVariables.CenterEnd = CenterEnd;
-                }
-            } 
-        }
         private static void Game_OnUpdate(EventArgs args)
         {
-            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed)
                 return;
-            // cancle R
-            if (ObjectManager.Player.IsChannelingImportantSpell())
-            {
-                var targetR = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
-                if (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
-                    !BadaoChecker.BadaoInTheCone(BadaoMissFortuneVariables.TargetRChanneling.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36))
-                {
-                    if ((targetR.BadaoIsValidTarget() && !BadaoChecker.BadaoInTheCone(targetR.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36) &&
-                    targetR.Position.To2D().Distance(ObjectManager.Player.Position.To2D()) <=
-                    ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + targetR.BoundingRadius) ||
-                    !HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
-                    BadaoChecker.BadaoInTheCone(x.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                    {
-                        ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                    }
-                    else
-                        return;
-                }
-                else
-                    return;
-            }
-            // Q logic
-            if (BadaoMissFortuneHelper.UseQ2Combo() && Orbwalking.CanMove(80))
+            if (BadaoMissFortuneHelper.UseQ2Harass() && Orbwalking.CanMove(80))
             {
                 // Q2 logic
                 var targetQ = TargetSelector.GetTarget(BadaoMainVariables.Q.Range + 600, TargetSelector.DamageType.Physical);
@@ -358,7 +277,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             abc:;
             }
             // Q1 logic
-            if (BadaoMissFortuneHelper.UseQ1Combo() && Orbwalking.CanMove(80))
+            if (BadaoMissFortuneHelper.UseQ1Harass() && Orbwalking.CanMove(80))
             {
                 var targetQ1 = TargetSelector.GetTarget(BadaoMainVariables.Q.Range, TargetSelector.DamageType.Physical);
                 if (targetQ1.BadaoIsValidTarget())
@@ -369,7 +288,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             abc:;
             }
             // E logic
-            if (BadaoMissFortuneHelper.UseECombo() && Orbwalking.CanMove(80))
+            if (BadaoMissFortuneHelper.UseEHarass() && Orbwalking.CanMove(80))
             {
                 var targetE = TargetSelector.GetTarget(BadaoMainVariables.E.Range + 200, TargetSelector.DamageType.Physical);
                 if (targetE.BadaoIsValidTarget())
@@ -384,6 +303,5 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             xyz:;
             }
         }
-
     }
 }

@@ -37,10 +37,23 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 
             // Combo
             Menu Combo = config.AddSubMenu(new Menu("Combo", "Combo"));
-            BadaoMissFortuneVariables.ComboQ = Combo.AddItem(new MenuItem("ComboQ","Q")).SetValue(true);
+            BadaoMissFortuneVariables.ComboQ1 = Combo.AddItem(new MenuItem("ComboQ1", "Q1")).SetValue(true);
+            BadaoMissFortuneVariables.ComboQ2 = Combo.AddItem(new MenuItem("ComboQ2", "Q2")).SetValue(true);
             BadaoMissFortuneVariables.ComboW = Combo.AddItem(new MenuItem("ComboW", "W")).SetValue(true);
             BadaoMissFortuneVariables.ComboE = Combo.AddItem(new MenuItem("ComboE", "E")).SetValue(true);
             BadaoMissFortuneVariables.ComboR = Combo.AddItem(new MenuItem("ComboR", "R")).SetValue(true);
+
+            // Harass
+            Menu Harass = config.AddSubMenu(new Menu("Harass", "Harass"));
+            BadaoMissFortuneVariables.HarassQ1 = Harass.AddItem(new MenuItem("HarassQ1", "Q1")).SetValue(true);
+            BadaoMissFortuneVariables.HarassQ2 = Harass.AddItem(new MenuItem("HarassQ2", "Q2")).SetValue(true);
+            BadaoMissFortuneVariables.HarassE = Harass.AddItem(new MenuItem("HarassE", "E")).SetValue(false);
+
+            // LaneClear
+            Menu LaneClear = config.AddSubMenu(new Menu("LaneClear", "LaneClear"));
+            BadaoMissFortuneVariables.LaneClearQ = Harass.AddItem(new MenuItem("LaneClearQ", "Q")).SetValue(true);
+            BadaoMissFortuneVariables.LaneClearW = Harass.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
+            BadaoMissFortuneVariables.LaneClearE = Harass.AddItem(new MenuItem("LaneClearE", "E")).SetValue(false);
 
             // attach to mainmenu
             config.AddToMainMenu();
