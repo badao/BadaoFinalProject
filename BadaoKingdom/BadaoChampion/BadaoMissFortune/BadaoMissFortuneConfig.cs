@@ -51,9 +51,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 
             // LaneClear
             Menu LaneClear = config.AddSubMenu(new Menu("LaneClear", "LaneClear"));
-            BadaoMissFortuneVariables.LaneClearQ = Harass.AddItem(new MenuItem("LaneClearQ", "Q")).SetValue(true);
-            BadaoMissFortuneVariables.LaneClearW = Harass.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
-            BadaoMissFortuneVariables.LaneClearE = Harass.AddItem(new MenuItem("LaneClearE", "E")).SetValue(false);
+            BadaoMissFortuneVariables.LaneClearQ = LaneClear.AddItem(new MenuItem("LaneClearQ", "Q")).SetValue(true);
+            BadaoMissFortuneVariables.LaneClearW = LaneClear.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
+            BadaoMissFortuneVariables.LaneClearE = LaneClear.AddItem(new MenuItem("LaneClearE", "E")).SetValue(false);
+
+            // LaneClear
+            Menu JungleClear = config.AddSubMenu(new Menu("JungleClear", "JungleClear"));
+            BadaoMissFortuneVariables.JungleClearQ = JungleClear.AddItem(new MenuItem("JungleClearQ", "Q")).SetValue(true);
+            BadaoMissFortuneVariables.JungleClearW = JungleClear.AddItem(new MenuItem("JungleClearW", "W")).SetValue(true);
+            BadaoMissFortuneVariables.JungleClearE = JungleClear.AddItem(new MenuItem("JungleClearE", "E")).SetValue(false);
 
             // Auto
             Menu Auto = config.AddSubMenu(new Menu("Auto", "Auto"));

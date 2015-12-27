@@ -27,6 +27,9 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         public static MenuItem LaneClearW;
         public static MenuItem LaneClearE;
 
+        public static MenuItem JungleClearQ;
+        public static MenuItem JungleClearW;
+        public static MenuItem JungleClearE;
         // #
         public static Obj_AI_Base TapTarget = null;
         public static Obj_AI_Hero TargetRChanneling = null;

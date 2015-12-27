@@ -57,6 +57,18 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             return BadaoMainVariables.E.IsReady() && BadaoMissFortuneVariables.LaneClearE.GetValue<bool>();
         }
+        public static bool UseQJungleClear()
+        {
+            return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.JungleClearQ.GetValue<bool>();
+        }
+        public static bool UseWJungleClear()
+        {
+            return BadaoMainVariables.W.IsReady() && BadaoMissFortuneVariables.JungleClearW.GetValue<bool>();
+        }
+        public static bool UseEJungleClear()
+        {
+            return BadaoMainVariables.E.IsReady() && BadaoMissFortuneVariables.JungleClearE.GetValue<bool>();
+        }
         public static bool UseQ2Auto(Obj_AI_Hero target)
         {
             return BadaoMainVariables.W.IsReady()
