@@ -7,6 +7,7 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
+using ItemData = LeagueSharp.Common.Data.ItemData;
 
 namespace BadaoKingdom
 {
@@ -48,6 +49,11 @@ namespace BadaoKingdom
         public static bool BadaoSmiteReady()
         {
             return BadaoMainVariables.Smite.IsReady();
+        }
+        public static bool BadaoUseTiamat()
+        {
+            return ItemData.Tiamat_Melee_Only.GetItem().Cast()
+                || ItemData.Ravenous_Hydra_Melee_Only.GetItem().Cast();
         }
         public static Vector2 BadaoRotateAround(this Vector2 pointToRotate, Vector2 centerPoint, float angleInRadians)
         {

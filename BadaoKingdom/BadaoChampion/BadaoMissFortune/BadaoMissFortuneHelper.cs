@@ -57,6 +57,11 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             return BadaoMainVariables.E.IsReady() && BadaoMissFortuneVariables.LaneClearE.GetValue<bool>();
         }
+        public static bool UseQ2Auto(Obj_AI_Hero target)
+        {
+            return BadaoMainVariables.W.IsReady()
+                && BadaoMissFortuneConfig.config.SubMenu("Auto").Item("AutoQ2" + target.NetworkId).GetValue<bool>();
+        }
         // damage caculation
         public static float GetAADamage(Obj_AI_Hero target)
         {

@@ -55,6 +55,13 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMissFortuneVariables.LaneClearW = Harass.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
             BadaoMissFortuneVariables.LaneClearE = Harass.AddItem(new MenuItem("LaneClearE", "E")).SetValue(false);
 
+            // Auto
+            Menu Auto = config.AddSubMenu(new Menu("Auto", "Auto"));
+            foreach (var hero in HeroManager.Enemies)
+            {
+                Auto.AddItem(new MenuItem("AutoQ2" + hero.NetworkId, "Q2 " + hero.ChampionName + " (" + hero.Name + ")")).SetValue(true);
+            }
+
             // attach to mainmenu
             config.AddToMainMenu();
         }

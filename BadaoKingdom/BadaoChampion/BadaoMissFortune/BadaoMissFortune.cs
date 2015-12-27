@@ -20,6 +20,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMissFortuneDrawing.BadaoActivate();
             BadaoMissFortuneHarass.BadaoActivate();
             BadaoMissFortuneLaneClear.BadaoActivate();
+            BadaoMissFortuneAuto.BadaoActivate();
         }
     }
 }
