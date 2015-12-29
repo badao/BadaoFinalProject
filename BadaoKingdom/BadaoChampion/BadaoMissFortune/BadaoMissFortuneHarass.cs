@@ -21,6 +21,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed)
                 return;
+            if (!BadaoMissFortuneHelper.CanHarassMana())
+                return;
             if (BadaoMissFortuneHelper.UseQ2Harass() && Orbwalking.CanMove(80))
             {
                 // Q2 logic

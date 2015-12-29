@@ -23,6 +23,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear
                 || !(target is Obj_AI_Minion) || target.Team != GameObjectTeam.Neutral)
                 return;
+            if (!BadaoMissFortuneHelper.CanJungleClearMana())
+                return;
             if (BadaoMissFortuneHelper.UseWJungleClear() && target.BadaoIsValidTarget())
             {
                 BadaoMainVariables.W.Cast();
@@ -32,6 +34,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         private static void Game_OnUpdate(EventArgs args)
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear)
+                return;
+            if (!BadaoMissFortuneHelper.CanJungleClearMana())
                 return;
             // Q logic
             if (BadaoMissFortuneHelper.UseQJungleClear() && Orbwalking.CanMove(80))

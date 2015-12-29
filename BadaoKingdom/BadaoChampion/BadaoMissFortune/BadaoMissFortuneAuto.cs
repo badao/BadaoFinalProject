@@ -23,6 +23,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed &&
                 BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
                 return;
+            if (!BadaoMissFortuneHelper.CanAutoMana())
+                return;
             foreach (Obj_AI_Hero heroX in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget() && 
                                                                    x.Position.To2D().Distance(ObjectManager.Player.Position.To2D()) 
                                                                    <= BadaoMainVariables.Q.Range + 500))

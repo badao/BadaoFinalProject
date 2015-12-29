@@ -48,18 +48,21 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMissFortuneVariables.HarassQ1 = Harass.AddItem(new MenuItem("HarassQ1", "Q1")).SetValue(true);
             BadaoMissFortuneVariables.HarassQ2 = Harass.AddItem(new MenuItem("HarassQ2", "Q2")).SetValue(true);
             BadaoMissFortuneVariables.HarassE = Harass.AddItem(new MenuItem("HarassE", "E")).SetValue(false);
+            BadaoMissFortuneVariables.HarassMana = Harass.AddItem(new MenuItem("HarassMana", "Min Mana To Harass")).SetValue(new Slider(30, 0, 100));
 
             // LaneClear
             Menu LaneClear = config.AddSubMenu(new Menu("LaneClear", "LaneClear"));
             BadaoMissFortuneVariables.LaneClearQ = LaneClear.AddItem(new MenuItem("LaneClearQ", "Q")).SetValue(true);
             BadaoMissFortuneVariables.LaneClearW = LaneClear.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
             BadaoMissFortuneVariables.LaneClearE = LaneClear.AddItem(new MenuItem("LaneClearE", "E")).SetValue(false);
+            BadaoMissFortuneVariables.LaneClearMana = LaneClear.AddItem(new MenuItem("LaneClearMana", "Min Mana To LaneClear")).SetValue(new Slider(30, 0, 100));
 
-            // LaneClear
+            // JungleClear
             Menu JungleClear = config.AddSubMenu(new Menu("JungleClear", "JungleClear"));
             BadaoMissFortuneVariables.JungleClearQ = JungleClear.AddItem(new MenuItem("JungleClearQ", "Q")).SetValue(true);
             BadaoMissFortuneVariables.JungleClearW = JungleClear.AddItem(new MenuItem("JungleClearW", "W")).SetValue(true);
             BadaoMissFortuneVariables.JungleClearE = JungleClear.AddItem(new MenuItem("JungleClearE", "E")).SetValue(false);
+            BadaoMissFortuneVariables.JungleClearMana = JungleClear.AddItem(new MenuItem("JungleClearMana", "Min Mana To JungleClear")).SetValue(new Slider(30, 0, 100));
 
             // Auto
             Menu Auto = config.AddSubMenu(new Menu("Auto", "Auto"));
@@ -67,6 +70,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             {
                 Auto.AddItem(new MenuItem("AutoQ2" + hero.NetworkId, "Q2 " + hero.ChampionName + " (" + hero.Name + ")")).SetValue(true);
             }
+            BadaoMissFortuneVariables.AutoMana = Auto.AddItem(new MenuItem("AutoMana", "Min Mana To Auto")).SetValue(new Slider(30, 0, 100));
 
             // attach to mainmenu
             config.AddToMainMenu();

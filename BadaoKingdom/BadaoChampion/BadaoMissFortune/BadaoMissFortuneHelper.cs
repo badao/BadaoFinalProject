@@ -74,6 +74,22 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             return BadaoMainVariables.W.IsReady()
                 && BadaoMissFortuneConfig.config.SubMenu("Auto").Item("AutoQ2" + target.NetworkId).GetValue<bool>();
         }
+        public static bool CanHarassMana()
+        {
+            return ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= BadaoMissFortuneVariables.HarassMana.GetValue<Slider>().Value;
+        }
+        public static bool CanLaneClearMana()
+        {
+            return ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= BadaoMissFortuneVariables.LaneClearMana.GetValue<Slider>().Value;
+        }
+        public static bool CanJungleClearMana()
+        {
+            return ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= BadaoMissFortuneVariables.JungleClearMana.GetValue<Slider>().Value;
+        }
+        public static bool CanAutoMana()
+        {
+            return ObjectManager.Player.Mana / ObjectManager.Player.MaxMana * 100 >= BadaoMissFortuneVariables.AutoMana.GetValue<Slider>().Value;
+        }
         // damage caculation
         public static float GetAADamage(Obj_AI_Hero target)
         {

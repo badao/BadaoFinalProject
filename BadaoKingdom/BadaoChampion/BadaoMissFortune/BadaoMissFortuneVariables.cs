@@ -22,14 +22,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         public static MenuItem HarassQ1;
         public static MenuItem HarassQ2;
         public static MenuItem HarassE;
+        public static MenuItem HarassMana;
 
         public static MenuItem LaneClearQ;
         public static MenuItem LaneClearW;
         public static MenuItem LaneClearE;
+        public static MenuItem LaneClearMana;
 
         public static MenuItem JungleClearQ;
         public static MenuItem JungleClearW;
         public static MenuItem JungleClearE;
+        public static MenuItem JungleClearMana;
+
+        public static MenuItem AutoMana;
         // #
         public static Obj_AI_Base TapTarget = null;
         public static Obj_AI_Hero TargetRChanneling = null;
