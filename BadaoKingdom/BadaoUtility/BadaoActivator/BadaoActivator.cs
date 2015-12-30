@@ -7,6 +7,7 @@ using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
 using Color = System.Drawing.Color;
+using ItemData = LeagueSharp.Common.Data.ItemData;
 
 namespace BadaoKingdom.BadaoUtility.BadaoActivator
 {
@@ -14,7 +15,26 @@ namespace BadaoKingdom.BadaoUtility.BadaoActivator
     {
         public static void BadaoActivate()
         {
+            BadaoActivatorConfig.BadaoActivate();
+            Game.OnUpdate += Game_OnUpdate;
+        }
 
+        private static void Game_OnUpdate(EventArgs args)
+        {
+            if (BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+            {
+                var targetA = TargetSelector.GetTarget(550, TargetSelector.DamageType.Physical);
+                if (targetA.BadaoIsValidTarget())
+                {
+                    if (BadaoActivatorHelper.UseBotrk())
+                    {
+                        ItemData.Blade_of_the_Ruined_King.GetItem().Cast(targetA);
+                        ItemData.Bilgewater_Cutlass.GetItem().Cast(targetA);
+                    }
+                    if (BadaoActivatorHelper.UseYoumuu())
+                        ItemData.Youmuus_Ghostblade.GetItem().Cast();
+                }
+            }
         }
     }
 }

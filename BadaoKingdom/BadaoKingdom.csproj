@@ -71,6 +71,9 @@
     <Compile Include="BadaoMainVariables.cs" />
     <Compile Include="BadaoMath.cs" />
     <Compile Include="BadaoUtility\BadaoActivator\BadaoActivator.cs" />
+    <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorConfig.cs" />
+    <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorHelper.cs" />
+    <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorVariables.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
