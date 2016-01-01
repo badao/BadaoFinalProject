@@ -19,9 +19,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
 
         private static void Game_OnUpdate(EventArgs args)
         {
-            if (BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo &&
-                BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Mixed &&
-                BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.LaneClear)
+            if (BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
                 return;
             if (!BadaoMissFortuneHelper.CanAutoMana())
                 return;
@@ -33,255 +31,153 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 {
                     if (Orbwalking.CanMove(80))
                     {
+                        List<Obj_AI_Base> a = new List<Obj_AI_Base>();
+                        if (BadaoMissFortuneVariables.TapTarget.BadaoIsValidTarget() &&
+                               heroX.NetworkId == BadaoMissFortuneVariables.TapTarget.NetworkId)
                         {
-                            if (BadaoMissFortuneVariables.TapTarget.BadaoIsValidTarget() &&
-                                heroX.NetworkId == BadaoMissFortuneVariables.TapTarget.NetworkId)
+                            foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
+                                                                                    x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
                             {
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                            x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
+                                var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40))
                                 {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                                                                        x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500), 40))
+                                        a.Add(hero);
                                 }
                             }
-                            else if (!BadaoMissFortuneVariables.TapTarget.IsValidTarget() ||
-                                heroX.NetworkId != BadaoMissFortuneVariables.TapTarget.NetworkId)
+                            foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
                             {
-                                //20
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                                                                        x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
+                                var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40))
                                 {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 20) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredHero.UnitPosition.To2D(), endpos, 20)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 20) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
-                                        x.NetworkId != minion.NetworkId &&
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredMinion.UnitPosition.To2D(), endpos, 20)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                                                                        x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 20) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredHero.UnitPosition.To2D(), endpos, 20)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 20) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
-                                        x.NetworkId != minion.NetworkId &&
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredMinion.UnitPosition.To2D(), endpos, 20)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                //40
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                                                                        x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(hero) >= hero.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredHero.UnitPosition.To2D(), endpos, 40)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoMissFortuneHelper.Q1Damage(minion) >= minion.Health &&
-                                        BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
-                                        x.NetworkId != minion.NetworkId &&
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredMinion.UnitPosition.To2D(), endpos, 40)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
-                                                                                        x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
-                                    var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredHero.UnitPosition.To2D(), endpos, 40)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(hero) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
-                                }
-                                foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
-                                {
-                                    var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
-                                    var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                    1400 + Game.Ping / 1000));
-                                    var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
-                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
-                                    Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
-                                        ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
-                                    if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40) &&
-                                        !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
-                                        x.NetworkId != minion.NetworkId &&
-                                        BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
-                                                                                            ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
-                                                                                            1400 + Game.Ping / 1000)).UnitPosition.To2D(),
-                                                                                            PredMinion.UnitPosition.To2D(), endpos, 40)))
-                                    {
-                                        if (BadaoMainVariables.Q.Cast(minion) == Spell.CastStates.SuccessfullyCasted)
-                                            goto abc;
-                                    }
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500), 40))
+                                        a.Add(minion);
                                 }
                             }
                         }
-                    abc:;
+                        else if (!BadaoMissFortuneVariables.TapTarget.IsValidTarget() ||
+                            heroX.NetworkId != BadaoMissFortuneVariables.TapTarget.NetworkId)
+                        {
+                            //20
+                            foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
+                                                                                    x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
+                            {
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
+                                var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 20) &&
+                                    !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
+                                    BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
+                                                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                                        1400 + Game.Ping / 1000)).UnitPosition.To2D(),
+                                                                                        PredHero.UnitPosition.To2D(), endpos, 20)))
+                                {
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500), 20))
+                                        a.Add(hero);
+                                }
+                            }
+                            foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
+                            {
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
+                                var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 20) &&
+                                    !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
+                                    x.NetworkId != minion.NetworkId &&
+                                    BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
+                                                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                                        1400 + Game.Ping / 1000)).UnitPosition.To2D(),
+                                                                                        PredMinion.UnitPosition.To2D(), endpos, 20)))
+                                {
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500), 20))
+                                        a.Add(minion);
+                                }
+                            }
+                            //40
+                            foreach (Obj_AI_Hero hero in HeroManager.Enemies.Where(x => x.NetworkId != heroX.NetworkId &&
+                                                                                    x.BadaoIsValidTarget(BadaoMainVariables.Q.Range)))
+                            {
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(hero);
+                                var PredHero = Prediction.GetPrediction(hero, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40) &&
+                                    !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
+                                    BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
+                                                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                                        1400 + Game.Ping / 1000)).UnitPosition.To2D(),
+                                                                                        PredHero.UnitPosition.To2D(), endpos, 40)))
+                                {
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500), 40))
+                                        a.Add(hero);
+                                }
+                            }
+                            foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
+                            {
+                                var Qpred = BadaoMainVariables.Q.GetPrediction(minion);
+                                var PredMinion = Prediction.GetPrediction(minion, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                1400 + Game.Ping / 1000));
+                                var PredheroX = Prediction.GetPrediction(heroX, 0.25f +
+                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D()) / 1400 + Game.Ping / 1000);
+                                Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                    ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500);
+                                if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40) &&
+                                    !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 500).Any(x =>
+                                    x.NetworkId != minion.NetworkId &&
+                                    BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
+                                                                                        ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                                                                        1400 + Game.Ping / 1000)).UnitPosition.To2D(),
+                                                                                        PredMinion.UnitPosition.To2D(), endpos, 40)))
+                                {
+                                    if (BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                        Geometry.Extend(ObjectManager.Player.Position.To2D(), PredMinion.UnitPosition.To2D(),
+                                                ObjectManager.Player.Position.To2D().Distance(PredMinion.UnitPosition.To2D()) + 500), 40))
+                                        a.Add(minion);
+                                }
+                            }
+                        }
+                        var targetQ = a.OrderBy(x => heroX.Position.To2D().Distance(Geometry.Extend(ObjectManager.Player.Position.To2D(),
+                                                                                    BadaoMissFortuneHelper.PredQBase(x).UnitPosition.To2D(),
+                                                                                    ObjectManager.Player.Position.To2D().Distance
+                                                                                    (BadaoMissFortuneHelper.PredQBase(x).UnitPosition.To2D()) + 300))).
+                                                                                    FirstOrDefault();
+                        if (targetQ.BadaoIsValidTarget())
+                        {
+                            BadaoMainVariables.Q.Cast(targetQ);
+                        }
                     }
                 }
             }

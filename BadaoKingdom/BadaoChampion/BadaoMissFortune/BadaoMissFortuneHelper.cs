@@ -214,5 +214,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                + (BadaoMainVariables.Q.IsReady() ? BadaoMainVariables.Q.GetDamage(ObjectManager.Player) : 0);
             return Rdame > Playerdame;
         }
+        // prediction
+        public static PredictionOutput PredQBase(Obj_AI_Base unit)
+        {
+            var Qpred = BadaoMainVariables.Q.GetPrediction(unit);
+            return Prediction.GetPrediction(unit, 0.25f + ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
+                                            1400 + Game.Ping / 1000));
+        }
     }
 }
