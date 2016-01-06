@@ -33,6 +33,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             return BadaoMainVariables.R.IsReady() && BadaoMissFortuneVariables.ComboR.GetValue<bool>();
         }
+        public static bool UseRComboWise()
+        {
+            return BadaoMainVariables.R.IsReady() && BadaoMissFortuneVariables.ComboRWise.GetValue<bool>();
+        }
         public static bool UseQ1Harass()
         {
             return BadaoMainVariables.Q.IsReady() && BadaoMissFortuneVariables.HarassQ1.GetValue<bool>();
@@ -71,7 +75,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         }
         public static bool UseQ2Auto(Obj_AI_Hero target)
         {
-            return BadaoMainVariables.W.IsReady()
+            return BadaoMainVariables.Q.IsReady()
                 && BadaoMissFortuneConfig.config.SubMenu("Auto").Item("AutoQ2" + target.NetworkId).GetValue<bool>();
         }
         public static bool CanHarassMana()

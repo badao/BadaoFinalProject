@@ -41,7 +41,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             BadaoMissFortuneVariables.ComboQ2 = Combo.AddItem(new MenuItem("ComboQ2", "Q2")).SetValue(true);
             BadaoMissFortuneVariables.ComboW = Combo.AddItem(new MenuItem("ComboW", "W")).SetValue(true);
             BadaoMissFortuneVariables.ComboE = Combo.AddItem(new MenuItem("ComboE", "E")).SetValue(true);
-            BadaoMissFortuneVariables.ComboR = Combo.AddItem(new MenuItem("ComboR", "R")).SetValue(true);
+            BadaoMissFortuneVariables.ComboR = Combo.AddItem(new MenuItem("ComboR", "R Killable")).SetValue(true);
+            BadaoMissFortuneVariables.ComboRWise = Combo.AddItem(new MenuItem("ComboRWise", "R Killable Wisely")).SetValue(true);
+            BadaoMissFortuneVariables.ComboRifhit = Combo.AddItem(new MenuItem("ComboRifhit", "R if hit")).SetValue(true);
+            BadaoMissFortuneVariables.ComboRifwillhit = Combo.AddItem(new MenuItem("ComboRifwillhit", "R if will hit")).SetValue(new Slider(3, 1, 5));
 
             // Harass
             Menu Harass = config.AddSubMenu(new Menu("Harass", "Harass"));
