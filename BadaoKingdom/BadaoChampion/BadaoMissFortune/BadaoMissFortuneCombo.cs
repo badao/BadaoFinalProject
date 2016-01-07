@@ -127,7 +127,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             // cancle R
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
-                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 0.5)
+                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                     return;
                 var targetR = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
                 if (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
