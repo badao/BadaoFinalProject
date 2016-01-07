@@ -129,17 +129,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             {
                 if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                     return;
-                var targetR = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
                 if (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
                     BadaoMissFortuneVariables.TargetRChanneling.IsZombie ||
                     !BadaoChecker.BadaoInTheCone(BadaoMissFortuneVariables.TargetRChanneling.Position.To2D(),
                     BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36))
                 {
-                    if ((targetR.BadaoIsValidTarget() && !BadaoChecker.BadaoInTheCone(targetR.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36) &&
-                    targetR.Position.To2D().Distance(ObjectManager.Player.Position.To2D()) <=
-                    ObjectManager.Player.BoundingRadius + ObjectManager.Player.AttackRange + targetR.BoundingRadius) ||
-                    !HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                    if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
                     BadaoChecker.BadaoInTheCone(x.Position.To2D(),
                     BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
                     {
