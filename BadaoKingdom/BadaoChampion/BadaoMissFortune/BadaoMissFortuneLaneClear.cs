@@ -23,6 +23,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear
                 || !(target is Obj_AI_Minion) || target.Team == GameObjectTeam.Neutral)
                 return;
+            if (ObjectManager.Player.IsChannelingImportantSpell())
+            {
+                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                    return;
+                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                {
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                }
+                else
+                    return;
+            }
             if (!BadaoMissFortuneHelper.CanLaneClearMana())
                 return;
             if (BadaoMissFortuneHelper.UseWLaneClear() && target.BadaoIsValidTarget())
@@ -35,6 +48,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear)
                 return;
+            if (ObjectManager.Player.IsChannelingImportantSpell())
+            {
+                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                    return;
+                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                {
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                }
+                else
+                    return;
+            }
             if (!BadaoMissFortuneHelper.CanLaneClearMana())
                 return;
             // Q logic

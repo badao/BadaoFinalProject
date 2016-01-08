@@ -25,12 +25,33 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (!sender.IsMe || args.Slot != SpellSlot.R)
                 return;
             BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
+            Vector2 x1 = new Vector2();
+            Vector2 x2 = new Vector2();
+            Vector2 CenterPolar = new Vector2();
+            Vector2 CenterEnd = new Vector2();
+            BadaoMissFortuneHelper.RPrediction(args.End.To2D(), ObjectManager.Player,
+                out CenterPolar, out CenterEnd, out x1, out x2);
+            BadaoMissFortuneVariables.CenterPolar = CenterPolar;
+            BadaoMissFortuneVariables.CenterEnd = CenterEnd;
         }
 
         private static void Orbwalking_OnAttack(AttackableUnit unit, AttackableUnit target)
         {
             if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
+            if (ObjectManager.Player.IsChannelingImportantSpell())
+            {
+                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                    return;
+                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                {
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                }
+                else
+                    return;
+            }
             if (BadaoMissFortuneHelper.UseWCombo() && target.BadaoIsValidTarget() && target is Obj_AI_Hero)
             {
                 BadaoMainVariables.W.Cast();
@@ -129,19 +150,11 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             {
                 if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                     return;
-                if (BadaoMissFortuneVariables.TargetRChanneling.IsDead ||
-                    BadaoMissFortuneVariables.TargetRChanneling.IsZombie ||
-                    !BadaoChecker.BadaoInTheCone(BadaoMissFortuneVariables.TargetRChanneling.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36))
+                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
                 {
-                    if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
-                    BadaoChecker.BadaoInTheCone(x.Position.To2D(),
-                    BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                    {
-                        ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                    }
-                    else
-                        return;
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
                 }
                 else
                     return;

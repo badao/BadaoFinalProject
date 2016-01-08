@@ -21,6 +21,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
                 return;
+            if (ObjectManager.Player.IsChannelingImportantSpell())
+            {
+                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                    return;
+                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                {
+                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                }
+                else
+                    return;
+            }
             if (!BadaoMissFortuneHelper.CanAutoMana())
                 return;
             foreach (Obj_AI_Hero heroX in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget() && 
