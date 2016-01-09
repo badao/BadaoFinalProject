@@ -23,16 +23,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
-                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
-                    return;
-                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
-                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
-                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                {
-                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                }
-                else
-                    return;
+                return;
             }
             if (!BadaoMissFortuneHelper.CanHarassMana())
                 return;

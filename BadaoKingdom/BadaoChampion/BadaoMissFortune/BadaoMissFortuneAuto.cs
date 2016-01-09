@@ -23,21 +23,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
-                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
-                    return;
-                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
-                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
-                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                {
-                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                }
-                else
-                    return;
+                return;
             }
             if (!BadaoMissFortuneHelper.CanAutoMana())
                 return;
-            foreach (Obj_AI_Hero heroX in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget() && 
-                                                                   x.Position.To2D().Distance(ObjectManager.Player.Position.To2D()) 
+            foreach (Obj_AI_Hero heroX in HeroManager.Enemies.Where(x => x.BadaoIsValidTarget() &&
+                                                                   x.Position.To2D().Distance(ObjectManager.Player.Position.To2D())
                                                                    <= BadaoMainVariables.Q.Range + 500))
             {
                 if (heroX.BadaoIsValidTarget() && BadaoMissFortuneHelper.UseQ2Auto(heroX))
@@ -61,7 +52,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                 if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 40)
                                     && BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(), endpos - 100, 40 - 5))
                                 {
-                                        a.Add(hero);
+                                    a.Add(hero);
                                 }
                             }
                             foreach (Obj_AI_Minion minion in MinionManager.GetMinions(BadaoMainVariables.Q.Range))
@@ -76,11 +67,11 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                 if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredMinion.UnitPosition.To2D(), endpos, 40)
                                     && BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredMinion.UnitPosition.To2D(), endpos - 100, 40 - 5))
                                 {
-                                        a.Add(minion);
+                                    a.Add(minion);
                                 }
                             }
                             var targetQ = a.OrderBy(x => (float)(180f - BadaoChecker.BadaoAngleBetween(heroX.Position.To2D(), Prediction.GetPrediction(x, 0.25f + ObjectManager.Player.Position.To2D().Distance(BadaoMainVariables.Q.GetPrediction(x).UnitPosition.To2D() /
-                                                                1400 + Game.Ping / 1000)).UnitPosition.To2D(), ObjectManager.Player.Position.To2D()))/40f + Math.Abs(x.Position.To2D().Distance(heroX.Position.To2D())-300)/100f).FirstOrDefault();
+                                                                1400 + Game.Ping / 1000)).UnitPosition.To2D(), ObjectManager.Player.Position.To2D())) / 40f + Math.Abs(x.Position.To2D().Distance(heroX.Position.To2D()) - 300) / 100f).FirstOrDefault();
                             if (targetQ.BadaoIsValidTarget())
                             {
                                 BadaoMainVariables.Q.Cast(targetQ);
@@ -146,7 +137,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                                 Vector2 endpos = Geometry.Extend(ObjectManager.Player.Position.To2D(), PredHero.UnitPosition.To2D(),
                                     ObjectManager.Player.Position.To2D().Distance(PredHero.UnitPosition.To2D()) + 500);
                                 if (BadaoChecker.BadaoInTheCone(PredheroX.UnitPosition.To2D(), PredHero.UnitPosition.To2D(), endpos, 20) &&
-                                    BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(), endpos - 100, 20 -3) &&
+                                    BadaoChecker.BadaoInTheCone(heroX.Position.To2D(), PredHero.UnitPosition.To2D(), endpos - 100, 20 - 3) &&
                                     !MinionManager.GetMinions(BadaoMainVariables.Q.Range + 600).Any(x =>
                                     BadaoChecker.BadaoInTheCone(Prediction.GetPrediction(x, 0.25f +
                                                                                         ObjectManager.Player.Position.To2D().Distance(Qpred.UnitPosition.To2D() /
