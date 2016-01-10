@@ -67,6 +67,15 @@
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneTapTarget.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneVariables.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneDrawing.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppy.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyAssasinate.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyHarass.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyJungleClear.cs" />
+    <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyVariables.cs" />
     <Compile Include="BadaoChecker.cs" />
     <Compile Include="BadaoMainVariables.cs" />
     <Compile Include="BadaoMath.cs" />
