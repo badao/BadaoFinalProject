@@ -53,6 +53,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
+            if (ObjectManager.Player.IsChannelingImportantSpell())
+            {
+                return;
+            }
             if (BadaoMissFortuneHelper.UseRCombo() && unit.IsMe 
                 && target.BadaoIsValidTarget() &&
                 target is Obj_AI_Hero && BadaoMissFortuneHelper.Rdamepior() 
@@ -139,15 +143,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             // cancle R
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
-                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
-                    return;
-                if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
-                BadaoChecker.BadaoInTheCone(x.Position.To2D(),
-                BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
-                {
-                    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                }
-                else
+                //if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                //    return;
+                //if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
+                //BadaoChecker.BadaoInTheCone(x.Position.To2D(),
+                //BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
+                //{
+                //    ObjectManager.Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                //}
+                //else
                     return;
             }
             // Q logic
