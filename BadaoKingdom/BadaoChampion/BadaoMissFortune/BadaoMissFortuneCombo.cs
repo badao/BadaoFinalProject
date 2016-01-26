@@ -18,6 +18,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             Orbwalking.AfterAttack += Orbwalking_AfterAttack; // R
             Orbwalking.OnAttack += Orbwalking_OnAttack; // W
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            Game.OnWndProc += Game_OnWndProc;
+        }
+
+        private static void Game_OnWndProc(WndEventArgs args)
+        {
+            if (args.Msg == (uint)WindowsMessages.WM_KEYDOWN && args.WParam == 'R' && BadaoMainVariables.R.IsReady())
+            {
+                BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
+            }
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -39,6 +48,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
                 return;
@@ -52,6 +63,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         private static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+                return;
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                 return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
@@ -141,6 +154,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
             // cancle R
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
                 //if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)

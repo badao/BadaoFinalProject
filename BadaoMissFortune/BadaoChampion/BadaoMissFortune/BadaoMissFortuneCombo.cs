@@ -18,6 +18,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             Orbwalking.AfterAttack += Orbwalking_AfterAttack; // R
             Orbwalking.OnAttack += Orbwalking_OnAttack; // W
             Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            Game.OnWndProc += Game_OnWndProc;
+        }
+
+        private static void Game_OnWndProc(WndEventArgs args)
+        {
+            if (args.Msg == (uint)WindowsMessages.WM_KEYDOWN && args.WParam == 'R' && BadaoMainVariables.R.IsReady())
+            {
+                BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
+            }
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -39,6 +48,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (!unit.IsMe || BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
                 return;
@@ -52,6 +63,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         private static void Orbwalking_AfterAttack(AttackableUnit unit, AttackableUnit target)
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+                return;
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                 return;
             if (BadaoMissFortuneHelper.UseRCombo() && unit.IsMe 
                 && target.BadaoIsValidTarget() &&
@@ -79,6 +92,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
                     BadaoMissFortuneVariables.CenterPolar = CenterPolar;
                     BadaoMissFortuneVariables.CenterEnd = CenterEnd;
+                    BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
                 }
                 else if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
                         (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
@@ -90,6 +104,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
                     BadaoMissFortuneVariables.CenterPolar = CenterPolar;
                     BadaoMissFortuneVariables.CenterEnd = CenterEnd;
+                    BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
                 }
             }
             if (BadaoMissFortuneHelper.UseRComboWise() && unit.IsMe
@@ -118,6 +133,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
                     BadaoMissFortuneVariables.CenterPolar = CenterPolar;
                     BadaoMissFortuneVariables.CenterEnd = CenterEnd;
+                    BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
                 }
                 else if (PredTarget.UnitPosition.To2D().Distance(ObjectManager.Player.Position.To2D()) >= 250 &&
                         (Target.HasBuffOfType(BuffType.Stun) || Target.HasBuffOfType(BuffType.Snare) ||
@@ -129,6 +145,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                     BadaoMissFortuneVariables.TargetRChanneling = target as Obj_AI_Hero;
                     BadaoMissFortuneVariables.CenterPolar = CenterPolar;
                     BadaoMissFortuneVariables.CenterEnd = CenterEnd;
+                    BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
                 }
             }
         }
@@ -137,10 +154,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
             // cancle R
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
-                if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
-                    return;
                 if (!HeroManager.Enemies.Any(x => x.BadaoIsValidTarget() &&
                 BadaoChecker.BadaoInTheCone(x.Position.To2D(),
                 BadaoMissFortuneVariables.CenterPolar, BadaoMissFortuneVariables.CenterEnd, 36)))
@@ -460,6 +477,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                             BadaoMissFortuneVariables.TargetRChanneling = hero as Obj_AI_Hero;
                             BadaoMissFortuneVariables.CenterPolar = CenterPolar;
                             BadaoMissFortuneVariables.CenterEnd = CenterEnd;
+                            BadaoMissFortuneVariables.Rcount = Utils.GameTimeTickCount;
                         }
                     }
                 }

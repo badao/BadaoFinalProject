@@ -21,6 +21,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Mixed)
                 return;
+            if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
+                return;
             if (ObjectManager.Player.IsChannelingImportantSpell())
             {
                 return;
