@@ -99,6 +99,29 @@ namespace BadaoKingdom.BadaoChampion.BadaoPoppy
                     }
                 }
             }
+            if (BadaoPoppyHelper.UseRAuto3Target())
+            {
+                if (!BadaoMainVariables.R.IsCharging)
+                {
+                    var knockup = HeroManager.Enemies.FirstOrDefault(x => x.BadaoIsValidTarget(500)
+                        && x.CountEnemiesInRange(300) >= 3);
+                    if (knockup != null)
+                        BadaoMainVariables.R.StartCharging();
+                }
+                else
+                {
+                    var knockup = HeroManager.Enemies.FirstOrDefault(x => x.BadaoIsValidTarget(500)
+                        && x.CountEnemiesInRange(300) >= 3);
+                    if (knockup != null)
+                        BadaoMainVariables.R.Cast(knockup.Position);
+                    else
+                    {
+                        var target = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
+                        if (target.BadaoIsValidTarget())
+                            BadaoMainVariables.R.Cast(target);
+                    }
+                }
+            }
         }
     }
 }

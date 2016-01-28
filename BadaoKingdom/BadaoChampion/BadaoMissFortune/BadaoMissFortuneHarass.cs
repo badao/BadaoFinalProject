@@ -23,7 +23,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoMissFortune
                 return;
             if (Utils.GameTimeTickCount - BadaoMissFortuneVariables.Rcount <= 500)
                 return;
-            if (ObjectManager.Player.IsChannelingImportantSpell())
+            if (ObjectManager.Player.IsCastingInterruptableSpell())
             {
                 return;
             }
