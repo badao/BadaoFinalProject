@@ -86,6 +86,16 @@
     <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyHelper.cs" />
     <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyJungleClear.cs" />
     <Compile Include="BadaoChampion\BadaoPoppy\BadaoPoppyVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShen.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenDrawing.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenJungleClear.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenLaneClear.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenSword.cs" />
+    <Compile Include="BadaoChampion\BadaoShen\BadaoShenVariables.cs" />
     <Compile Include="BadaoChecker.cs" />
     <Compile Include="BadaoMainVariables.cs" />
     <Compile Include="BadaoMath.cs" />
