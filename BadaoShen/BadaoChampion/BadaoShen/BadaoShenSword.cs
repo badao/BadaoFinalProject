@@ -23,7 +23,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
 
         private static void Game_OnUpdate1(EventArgs args)
         {
-            if (CheckTick <= Utils.GameTimeTickCount + 200)
+            if (CheckTick >= Utils.GameTimeTickCount - 200)
                 return;
             CheckTick = Utils.GameTimeTickCount;
             var ShenBeam = ObjectManager.Get<Obj_AI_Minion>().FirstOrDefault(x => x.IsAlly && x.Name == "ShenThingUnit");
@@ -33,7 +33,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
 
         private static void Game_OnUpdate2(EventArgs args)
         {
-            if (CheckTick <= Utils.GameTimeTickCount + 200)
+            if (CheckTick >= Utils.GameTimeTickCount - 200)
                 return;
             CheckTick = Utils.GameTimeTickCount;
             var ShenBeam = ObjectManager.Get<Obj_GeneralParticleEmitter>().FirstOrDefault(x => x.Name == "Shen_Base_Q_beam.troy");

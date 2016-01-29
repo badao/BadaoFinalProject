@@ -17,7 +17,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
         {
             // spells init
             BadaoMainVariables.Q = new Spell(SpellSlot.Q);
-            BadaoMainVariables.W = new Spell(SpellSlot.W, 250);
+            BadaoMainVariables.W = new Spell(SpellSlot.W, 300);
             BadaoMainVariables.E = new Spell(SpellSlot.E, 600);
             BadaoMainVariables.E.SetSkillshot(0f, 50f, 1600f, false, SkillshotType.SkillshotLine);
             BadaoMainVariables.R = new Spell(SpellSlot.R);

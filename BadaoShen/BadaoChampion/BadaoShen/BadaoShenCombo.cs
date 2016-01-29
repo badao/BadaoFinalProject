@@ -14,9 +14,31 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
     {
         public static void BadaoActive()
         {
-            Orbwalking.OnAttack += Orbwalking_OnAttack;
+            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
             Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
             Game.OnUpdate += Game_OnUpdate;
+        }
+
+        private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
+        {
+            if (!args.SData.IsAutoAttack())
+                return;
+            if (!(sender is Obj_AI_Hero) || !(args.Target is Obj_AI_Hero))
+                return;
+            var target = args.Target as Obj_AI_Hero;
+            var unit = sender as Obj_AI_Hero;
+            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
+                return;
+            if (!target.BadaoIsValidTarget(float.MaxValue, false))
+                return;
+            if (!(target.IsAlly))
+                return;
+            if (unit is Obj_AI_Hero && unit.IsEnemy && target is Obj_AI_Hero
+                && target.Position.To2D().Distance(BadaoShenVariables.SwordPos) <= BadaoMainVariables.W.Range
+                && BadaoShenHelper.UseWCombo(target as Obj_AI_Hero))
+            {
+                BadaoMainVariables.W.Cast();
+            }
         }
 
         private static void Game_OnUpdate(EventArgs args)
@@ -96,17 +118,6 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
             if (BadaoShenHelper.UseQCombo())
             {
                 BadaoMainVariables.Q.Cast();
-            }
-        }
-        private static void Orbwalking_OnAttack(AttackableUnit unit, AttackableUnit target)
-        {
-            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
-                return;
-            if (unit is Obj_AI_Hero && unit.IsEnemy && target is Obj_AI_Hero && target.IsAlly && target.BadaoIsValidTarget(float.MaxValue, false)
-                && target.Position.To2D().Distance(BadaoShenVariables.SwordPos) <= BadaoMainVariables.W.Range
-                && BadaoShenHelper.UseWCombo(target as Obj_AI_Hero))
-            {
-                BadaoMainVariables.W.Cast();
             }
         }
     }

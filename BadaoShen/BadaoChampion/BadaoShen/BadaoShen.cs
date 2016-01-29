@@ -16,6 +16,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoShen
             BadaoShenJungleClear.BadaoActivate();
             BadaoShenLaneClear.BadaoActivate();
             BadaoShenSword.BadaoActivate();
+            BadaoShenDrawing.BadaoActivate();
         }
     }
 }
