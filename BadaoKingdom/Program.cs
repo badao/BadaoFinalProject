@@ -34,6 +34,7 @@ namespace BadaoKingdom
             BadaoChampionActivate();
             BadaoUtility.BadaoActivator.BadaoActivator.BadaoActivate();
         }
+
         private static void BadaoChampionActivate()
         {
             var ChampionName = ObjectManager.Player.ChampionName;
