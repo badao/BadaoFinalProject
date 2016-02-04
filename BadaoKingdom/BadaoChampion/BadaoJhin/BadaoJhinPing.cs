@@ -29,8 +29,6 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
             Utility.DelayAction.Add(150, SimplePing);
             Utility.DelayAction.Add(300, SimplePing);
-            Utility.DelayAction.Add(400, SimplePing);
-            Utility.DelayAction.Add(800, SimplePing);
         }
 
         public static void SimplePing()

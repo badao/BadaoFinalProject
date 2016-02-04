@@ -12,6 +12,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 {
     public static class BadaoJhinAuto
     {
+        public static int RAutoTick = 0;
         public static Obj_AI_Hero RAutoTarget = null;
         public static void BadaoActiavate()
         {
@@ -24,15 +25,11 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
         {
             if (BadaoJhinHelper.UseRAuto() && BadaoMainVariables.R.Instance.SData.Name == "JhinRShot")
             {
-                if (RAutoTarget.BadaoIsValidTarget(BadaoMainVariables.R.Range) &&
-                    BadaoChecker.BadaoInTheCone(
-                        RAutoTarget.Position.To2D(), ObjectManager.Player.Position.To2D(),
-                        ObjectManager.Player.Position.To2D()
-                        + ObjectManager.Player.Direction.To2D().Normalized().Perpendicular() * BadaoMainVariables.R.Range, 60))
+                if (RAutoTarget.BadaoIsValidTarget())
                 {
                     var x = Drawing.WorldToScreen(ObjectManager.Player.Position);
                     var y = Drawing.WorldToScreen(RAutoTarget.Position);
-                    Drawing.DrawLine(x, y, 2, Color.Yellow);
+                    Drawing.DrawLine(x, y, 2, Color.Red);
                 }
             }
         }
@@ -44,11 +41,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                 if (args.Msg == (uint)WindowsMessages.WM_KEYDOWN && args.WParam == BadaoJhinHelper.AutoRTapKey() 
                     && BadaoMainVariables.R.IsReady())
                 {
-                    if (RAutoTarget.BadaoIsValidTarget(BadaoMainVariables.R.Range) &&
-                         BadaoChecker.BadaoInTheCone(
-                              RAutoTarget.Position.To2D(), ObjectManager.Player.Position.To2D(),
-                              ObjectManager.Player.Position.To2D()
-                              + ObjectManager.Player.Direction.To2D().Normalized().Perpendicular() * BadaoMainVariables.R.Range, 60))
+                    if (RAutoTarget.BadaoIsValidTarget())
                     {
                         BadaoMainVariables.R.Cast(RAutoTarget);
                     }
@@ -59,8 +52,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
         private static void Game_OnUpdate(EventArgs args)
         {
-            if (BadaoJhinHelper.UseRAuto() && BadaoMainVariables.R.Instance.SData.Name == "JhinRShot")
+            if (Environment.TickCount - RAutoTick >= 200 && BadaoJhinHelper.UseRAuto() 
+                && BadaoMainVariables.R.Instance.SData.Name == "JhinRShot")
             {
+                RAutoTick = Environment.TickCount;
                 if (BadaoJhinHelper.AutoRTargetAuto())
                 {
                     var target = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical,
@@ -110,6 +105,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                         .Where(x => x.BadaoIsValidTarget(BadaoMainVariables.R.Range) &&  BadaoJhinHelper.GetRdamage(x) >= x.Health))
                     {
                         BadaoJhinPing.Ping(hero.Position.To2D());
+                        break;
                     }
                 }
             }
@@ -120,11 +116,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
                 if (BadaoJhinHelper.AutoRModeAuto())
                 {
-                    if (RAutoTarget.BadaoIsValidTarget(BadaoMainVariables.R.Range) &&
-                         BadaoChecker.BadaoInTheCone(
-                              RAutoTarget.Position.To2D(), ObjectManager.Player.Position.To2D(),
-                              ObjectManager.Player.Position.To2D()
-                              + ObjectManager.Player.Direction.To2D().Normalized().Perpendicular() * BadaoMainVariables.R.Range, 60))
+                    if (RAutoTarget.BadaoIsValidTarget())
                     {
                         BadaoMainVariables.R.Cast(RAutoTarget);
                     }
@@ -162,7 +154,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     var x = BadaoMainVariables.W.GetPrediction(hero).CastPosition;
                     var y = BadaoMainVariables.W.GetPrediction(hero).CollisionObjects;
                     if (!y.Any(z => z.IsChampion()) && ObjectManager.Player.Distance(x) <= BadaoMainVariables.W.Range
-                        && BadaoJhinPassive.JhinTrap.Any(i => i.Distance(x) <= 50))
+                        && BadaoJhinPassive.JhinTrap.Any(i => i.Distance(x) <= 100))
                     {
                         if (BadaoMainVariables.W.Cast(x))
                             break;
