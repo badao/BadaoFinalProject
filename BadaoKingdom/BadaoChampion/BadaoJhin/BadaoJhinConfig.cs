@@ -69,7 +69,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
             BadaoJhinVariables.AutoPingKillable = Auto.AddItem(new MenuItem("AutoPingKillable", "Auto Ping Killable with R")).SetValue(true);
             BadaoJhinVariables.AutoR = Auto.AddItem(new MenuItem("AutoR", "Use R if channeling")).SetValue(true);
             BadaoJhinVariables.AutoRMode = Auto.AddItem(new MenuItem("AutoRMode", "R mode")).SetValue(new StringList(new string[] {"Auto","OnTap" }, 0));
-            BadaoJhinVariables.AutoRTarget = Auto.AddItem(new MenuItem("AutoRTarget", "R target")).SetValue(new StringList(new string[] { "Selected", "Near Mouse","Auto" }, 2));
+            BadaoJhinVariables.AutoRTarget = Auto.AddItem(new MenuItem("AutoRTargets", "R targets")).SetValue(new StringList(new string[] { "Selected", "Near Mouse","Auto" }, 2));
             BadaoJhinVariables.AutoRTapKey = Auto.AddItem(new MenuItem("AutoRTapKey", "R tap key")).SetValue(new KeyBind('T', KeyBindType.Press));
             BadaoJhinVariables.AutoW = Auto.AddItem(new MenuItem("AutoW", "Use W on Slowed Target")).SetValue(true);
             BadaoJhinVariables.AutoWTrap  = Auto.AddItem(new MenuItem("AutoWTrap", "Use W Target on Trap")).SetValue(true);
