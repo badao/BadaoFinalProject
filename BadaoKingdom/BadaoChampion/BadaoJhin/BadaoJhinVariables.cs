@@ -15,6 +15,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
         // menu
         public static MenuItem ComboQ;
         public static MenuItem ComboW;
+        public static MenuItem ComboWOnlySnare;
         public static MenuItem ComboE;
 
         public static MenuItem HarassQ;
@@ -32,7 +33,14 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
         public static MenuItem AutoMana;
         public static MenuItem AutoR;
+        public static MenuItem AutoRMode;
+        public static MenuItem AutoRTarget;
+        public static MenuItem AutoRTapKey;
         public static MenuItem AutoW;
+        public static MenuItem AutoWTrap;
         public static MenuItem AutoKS;
+        public static MenuItem AutoPingKillable;
+
+        public static MenuItem DrawWMiniMap;
     }
 }

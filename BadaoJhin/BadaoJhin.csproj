@@ -57,11 +57,13 @@
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinAuto.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinCombo.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinDrawing.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinHarass.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinHelper.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinJungleClear.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinLaneClear.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinPassive.cs" />
+    <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinPing.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinVariables.cs" />
     <Compile Include="BadaoChecker.cs" />
     <Compile Include="BadaoMainVariables.cs" />

@@ -12,9 +12,45 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 {
     public static class BadaoJhinHelper
     {
+        public static bool DrawWMiniMap()
+        {
+            return BadaoJhinVariables.DrawWMiniMap.GetValue<bool>();
+        }
+        public static uint AutoRTapKey()
+        {
+            return BadaoJhinVariables.AutoRTapKey.GetValue<KeyBind>().Key;
+        }
+        public static bool AutoRTargetAuto()
+        {
+            return BadaoJhinVariables.AutoRTarget.GetValue<StringList>().SelectedIndex == 2;
+        }
+        public static bool AutoRTargetNearMouse()
+        {
+            return BadaoJhinVariables.AutoRTarget.GetValue<StringList>().SelectedIndex == 1;
+        }
+        public static bool AutoRTargetSelected()
+        {
+            return BadaoJhinVariables.AutoRTarget.GetValue<StringList>().SelectedIndex == 0;
+        }
+        public static bool AutoRModeAuto()
+        {
+            return BadaoJhinVariables.AutoRMode.GetValue<StringList>().SelectedIndex == 0;
+        }
+        public static bool AutoRModeOnTap()
+        {
+            return BadaoJhinVariables.AutoRMode.GetValue<StringList>().SelectedIndex == 1 ;
+        }
+        public static bool UseAutoPingKillable()
+        {
+            return BadaoJhinVariables.AutoPingKillable.GetValue<bool>();
+        }
         public static bool UseAutoKS()
         {
             return BadaoJhinVariables.AutoKS.GetValue<bool>();
+        }
+        public static bool UseWAutoTrap()
+        {
+            return BadaoMainVariables.W.IsReady() && BadaoJhinVariables.AutoWTrap.GetValue<bool>();
         }
         public static bool UseWAuto()
         {
@@ -60,6 +96,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
         {
             return BadaoMainVariables.W.IsReady() && BadaoJhinVariables.ComboW.GetValue<bool>();
         }
+        public static bool UseWOnlySnareCombo()
+        {
+            return BadaoMainVariables.W.IsReady() && BadaoJhinVariables.ComboWOnlySnare.GetValue<bool>();
+        }
         public static bool UseQCombo()
         {
             return BadaoMainVariables.Q.IsReady() && BadaoJhinVariables.ComboQ.GetValue<bool>();
@@ -84,6 +124,67 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
         {
             return BadaoJhinPassive.JhinPassive.Any(x => Geometry.Distance(x.Position.To2D(),(target.Position.To2D())) <= 50);
         }
+
+        // damage calculation
+        // 60 / 85 / 110 / 135 / 160 (+ 30 / 35 / 40 / 45 / 50% AD) (+ 60% AP)
+        public static float GetQDamage(Obj_AI_Hero target)
+        {
+            float rawDamage = new float[] { 60, 85, 110, 135, 160 }[BadaoMainVariables.W.Level - 1]
+                + new float[] { 0.3f, 0.35f, 0.4f, 0.45f, 0.5f }[BadaoMainVariables.W.Level - 1] * GetTotalAttackDamage()
+                + 0.6f * ObjectManager.Player.TotalMagicalDamage;
+            return (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
+
+        }
+        public static float GetWDamage(Obj_AI_Hero target)
+        {
+            float rawDamage = new float[] { 50, 85, 120, 155, 190 }[BadaoMainVariables.W.Level - 1]
+                + 0.7f * GetTotalAttackDamage();
+            return (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
+        }
+        public static float GetRdamage(Obj_AI_Hero target)
+        {
+            float health = target.Health;
+            float damage1 = BasicRdamage(target, health, 1);
+            if (damage1 >= health)
+                return target.MaxHealth + 100;
+            health -= damage1;
+            float damage2 = BasicRdamage(target, health, 1);
+            if (damage2 >= health)
+                return target.MaxHealth + 100;
+            health -= damage2;
+            float damage3 = BasicRdamage(target, health, 1);
+            if (damage3 >= health)
+                return target.MaxHealth + 100;
+            health -= damage3;
+            float damage4 = BasicRdamage(target, health, 2);
+            if (damage4 >= health)
+                return target.MaxHealth + 100;
+            health -= damage4;
+            return target.Health - health;
+
+        }
+        public static float BasicRdamage(Obj_AI_Hero target, float Health, int state)
+        {
+            float missingHealth = (target.MaxHealth - Health) / target.MaxHealth;
+            float rawDamage = new float[] { 50, 125, 200 }[BadaoMainVariables.R.Level - 1]
+                + 0.25f * GetTotalAttackDamage();
+            float calcDamage = (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
+            if (state == 1)
+            {
+                return calcDamage * (1 + missingHealth * 2);
+            }
+            return calcDamage * 2 * (1 + missingHealth * 2);
+        }
+        public static float GetTotalAttackDamage()
+        {
+            return
+                ObjectManager.Player.TotalAttackDamage +
+                (new float[] { 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 18, 20, 24, 28, 32, 36, 40 }[ObjectManager.Player.Level - 1] / 100f
+                 + ObjectManager.Player.Crit * 0.4f + (ObjectManager.Player.AttackSpeedMod - 1f) * 0.25f)
+                 * ObjectManager.Player.TotalAttackDamage; 
+        }
+
+        // get Q info
         public static List<QInfo> GetQInfo()
         {
             List<QInfo> QInfo = new List<QInfo>();

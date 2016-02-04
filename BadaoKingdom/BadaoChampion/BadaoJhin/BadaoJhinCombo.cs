@@ -44,6 +44,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     BadaoMainVariables.Q.Cast(target.QTarget);
                 }
             }
+            if (BadaoJhinHelper.UseWOnlySnareCombo())
+            {
+                foreach (var hero in HeroManager.Enemies.Where(a => a.BadaoIsValidTarget() && BadaoJhinHelper.HasJhinPassive(a)))
+                {
+                    var b = BadaoMainVariables.W.GetPrediction(hero).CastPosition;
+                    var c = BadaoMainVariables.W.GetPrediction(hero).CollisionObjects;
+                    if (!c.Any(d => d.IsChampion()) && ObjectManager.Player.Distance(b) <= BadaoMainVariables.W.Range)
+                    {
+                        if (BadaoMainVariables.W.Cast(b))
+                            break;
+                    }
+                }
+            }
             if (BadaoJhinHelper.UseWCombo())
             {
                 var target = TargetSelector.GetTarget(BadaoMainVariables.W.Range, TargetSelector.DamageType.Physical);
@@ -63,7 +76,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                             var c = BadaoMainVariables.W.GetPrediction(hero).CollisionObjects;
                             if (!c.Any(d => d.IsChampion()) && ObjectManager.Player.Distance(b) <= BadaoMainVariables.W.Range)
                             {
-                                if (BadaoMainVariables.W.Cast(x))
+                                if (BadaoMainVariables.W.Cast(b))
                                     break;
                             }
                         }

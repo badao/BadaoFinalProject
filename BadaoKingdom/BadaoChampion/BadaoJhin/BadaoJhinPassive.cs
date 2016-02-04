@@ -13,6 +13,14 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
     public static class BadaoJhinPassive
     {
         public static List<GameObject> JhinPassive = new List<GameObject>();
+        public static List<Obj_AI_Minion> JhinTrap
+        {
+            get 
+            {
+                return
+                    ObjectManager.Get<Obj_AI_Minion>().Where(x => x.IsAlly && x.CharData.BaseSkinName == "jhintrap").ToList();
+            }
+        }
         public static void BadaoActiavte()
         {
             Game.OnUpdate += Game_OnUpdate;

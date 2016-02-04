@@ -41,7 +41,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
             // Combo
             Menu Combo = config.AddSubMenu(new Menu("Combo", "Combo"));
             BadaoJhinVariables.ComboQ = Combo.AddItem(new MenuItem("ComboQ", "Q")).SetValue(true);
-            BadaoJhinVariables.ComboW = Combo.AddItem(new MenuItem("ComboW", "W")).SetValue(true);
+            BadaoJhinVariables.ComboW = Combo.AddItem(new MenuItem("ComboW", "W for damage")).SetValue(true);
+            BadaoJhinVariables.ComboWOnlySnare = Combo.AddItem(new MenuItem("ComboWOnlySnare", "W for Rooting")).SetValue(true);
             BadaoJhinVariables.ComboE = Combo.AddItem(new MenuItem("ComboE", "E")).SetValue(true);
 
             // Harass
@@ -65,10 +66,19 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
             // Auto
             Menu Auto = config.AddSubMenu(new Menu("Auto", "Auto"));
+            BadaoJhinVariables.AutoPingKillable = Auto.AddItem(new MenuItem("AutoPingKillable", "Auto Ping Killable with R")).SetValue(true);
             BadaoJhinVariables.AutoR = Auto.AddItem(new MenuItem("AutoR", "Use R if channeling")).SetValue(true);
+            BadaoJhinVariables.AutoRMode = Auto.AddItem(new MenuItem("AutoRMode", "R mode")).SetValue(new StringList(new string[] {"Auto","OnTap" }, 0));
+            BadaoJhinVariables.AutoRTarget = Auto.AddItem(new MenuItem("AutoRTarget", "R target")).SetValue(new StringList(new string[] { "Selected", "Near Mouse","Auto" }, 3));
+            BadaoJhinVariables.AutoRTapKey = Auto.AddItem(new MenuItem("AutoRTapKey", "R tap key")).SetValue(new KeyBind('T', KeyBindType.Press));
             BadaoJhinVariables.AutoW = Auto.AddItem(new MenuItem("AutoW", "Use W on Slowed Target")).SetValue(true);
+            BadaoJhinVariables.AutoWTrap  = Auto.AddItem(new MenuItem("AutoWTrap", "Use W Target on Trap")).SetValue(true);
             BadaoJhinVariables.AutoKS = Auto.AddItem(new MenuItem("AutoKS", "KS")).SetValue(true);
             BadaoJhinVariables.AutoMana = Auto.AddItem(new MenuItem("AutoMana", "Mana Limit")).SetValue(new Slider(30, 0, 100));
+
+            // Draw
+            Menu Draw = config.AddSubMenu(new Menu("Draw", "Draw"));
+            BadaoJhinVariables.DrawWMiniMap = Draw.AddItem(new MenuItem("DrawWMiniMap", "Draw W on minimap")).SetValue(false);
 
             // attach to mainmenu
             config.AddToMainMenu();
