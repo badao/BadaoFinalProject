@@ -162,7 +162,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     var x = BadaoMainVariables.W.GetPrediction(hero).CastPosition;
                     var y = BadaoMainVariables.W.GetPrediction(hero).CollisionObjects;
                     if (!y.Any(z => z.IsChampion()) && ObjectManager.Player.Distance(x) <= BadaoMainVariables.W.Range
-                        && BadaoJhinPassive.JhinTrap.Any(i => i.Distance(x) <= 50))
+                        && BadaoJhinPassive.JhinTrap.Any(i => i.Distance(x) <= 100))
                     {
                         if (BadaoMainVariables.W.Cast(x))
                             break;
