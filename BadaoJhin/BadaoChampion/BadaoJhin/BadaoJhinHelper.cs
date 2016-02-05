@@ -127,21 +127,21 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
 
         // damage calculation
         // 60 / 85 / 110 / 135 / 160 (+ 30 / 35 / 40 / 45 / 50% AD) (+ 60% AP)
-        public static float GetQDamage(Obj_AI_Hero target)
+        public static float GetQDamage(Obj_AI_Base target)
         {
-            float rawDamage = new float[] { 60, 85, 110, 135, 160 }[BadaoMainVariables.W.Level - 1]
-                + new float[] { 0.3f, 0.35f, 0.4f, 0.45f, 0.5f }[BadaoMainVariables.W.Level - 1] * GetTotalAttackDamage()
+            float rawDamage = new float[] { 60, 85, 110, 135, 160 }[BadaoMainVariables.Q.Level - 1]
+                + new float[] { 0.3f, 0.35f, 0.4f, 0.45f, 0.5f }[BadaoMainVariables.Q.Level - 1] * GetTotalAttackDamage()
                 + 0.6f * ObjectManager.Player.TotalMagicalDamage;
             return (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
 
         }
-        public static float GetWDamage(Obj_AI_Hero target)
+        public static float GetWDamage(Obj_AI_Base target)
         {
             float rawDamage = new float[] { 50, 85, 120, 155, 190 }[BadaoMainVariables.W.Level - 1]
                 + 0.7f * GetTotalAttackDamage();
             return (float)ObjectManager.Player.CalcDamage(target, Damage.DamageType.Physical, rawDamage);
         }
-        public static float GetRdamage(Obj_AI_Hero target)
+        public static float GetRdamage(Obj_AI_Base target)
         {
             float health = target.Health;
             float damage1 = BasicRdamage(target, health, 1);
@@ -163,7 +163,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
             return target.Health - health;
 
         }
-        public static float BasicRdamage(Obj_AI_Hero target, float Health, int state)
+        public static float BasicRdamage(Obj_AI_Base target, float Health, int state)
         {
             float missingHealth = (target.MaxHealth - Health) / target.MaxHealth;
             float rawDamage = new float[] { 50, 125, 200 }[BadaoMainVariables.R.Level - 1]
@@ -205,7 +205,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                 int deathCount3 = 0;
                 int deathCount4 = 0;
                 usedID.Add(target.NetworkId);
-                if (BadaoMainVariables.Q.GetDamage(target)* (1f + deathCount * 0.35f) > target.Health)
+                if (GetQDamage(target) * (1f + deathCount * 0.35f) > target.Health)
                     deathCount += 1;
                 deathCount1 = deathCount;
                 //target2
@@ -225,7 +225,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     continue;
                 }
                 usedID.Add(target2.NetworkId);
-                if (BadaoMainVariables.Q.GetDamage(target2)*(1f + deathCount * 0.35f) > target2.Health)
+                if (GetQDamage(target2) * (1f + deathCount * 0.35f) > target2.Health)
                     deathCount += 1;
                 deathCount2 = deathCount;
                 //target3
@@ -246,7 +246,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     continue;
                 }
                 usedID.Add(target3.NetworkId);
-                if (BadaoMainVariables.Q.GetDamage(target3)* (1f + deathCount * 0.35f) > target3.Health)
+                if (GetQDamage(target3) * (1f + deathCount * 0.35f) > target3.Health)
                     deathCount += 1;
                 deathCount3 = deathCount;
                 //target4
@@ -267,7 +267,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                     });
                     continue;
                 }
-                if (BadaoMainVariables.Q.GetDamage(target4) * (1f + deathCount * 0.35f) > target4.Health)
+                if (GetQDamage(target4) * (1f + deathCount * 0.35f) > target4.Health)
                     deathCount += 1;
                 deathCount4 = deathCount;
                 QInfo.Add(new QInfo()

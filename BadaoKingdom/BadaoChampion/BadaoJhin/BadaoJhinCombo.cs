@@ -34,14 +34,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoJhin
                 return;
             if (BadaoJhinHelper.UseQCombo())
             {
-                var info = BadaoJhinHelper.GetQInfo();
-                var target = info.Where(x => x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero) != null)
-                    .OrderBy(x => x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero).DeathCount)
-                    .ThenByDescending(x => x.BounceTargets.IndexOf(x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero)))
-                    .LastOrDefault();
-                if (target != null)
+                //var info = BadaoJhinHelper.GetQInfo();
+                //var target = info.Where(x => x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero) != null)
+                //    .OrderBy(x => x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero).DeathCount)
+                //    .ThenByDescending(x => x.BounceTargets.IndexOf(x.BounceTargets.LastOrDefault(y => y.Target is Obj_AI_Hero)))
+                //    .LastOrDefault();
+                var target = TargetSelector.GetTarget(BadaoMainVariables.Q.Range, TargetSelector.DamageType.Physical);
+                if (target.BadaoIsValidTarget())
                 {
-                    BadaoMainVariables.Q.Cast(target.QTarget);
+                    BadaoMainVariables.Q.Cast(target);
                 }
             }
             if (BadaoJhinHelper.UseWOnlySnareCombo())
