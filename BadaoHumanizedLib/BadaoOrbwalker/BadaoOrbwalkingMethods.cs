@@ -36,7 +36,7 @@ namespace BadaoHumanizedLib.BadaoOrbwalker
             }
             if (target.IsValidTarget() && Orbwalking.InAutoAttackRange(target) && Orbwalking.CanAttack())
             {
-                float randomTime = BadaoOrbwalkerVariables._random.NextFloat(0f, Player.AttackDelay / 2f);
+                float randomTime = BadaoOrbwalkerVariables._random.NextFloat(0f, Player.AttackDelay);
                 if ((Player.AttackDelay < 1f / 1.5f) &&
                     Utils.GameTimeTickCount + Game.Ping / 2 + 25 < Orbwalking.LastAATick + (Player.AttackDelay + randomTime) * 1000)
                     return;
