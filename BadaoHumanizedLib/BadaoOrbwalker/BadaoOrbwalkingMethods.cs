@@ -37,10 +37,11 @@ namespace BadaoHumanizedLib.BadaoOrbwalker
             if (target.IsValidTarget() && Orbwalking.InAutoAttackRange(target) && Orbwalking.CanAttack())
             {
                 float randomTime = BadaoOrbwalkerVariables._random.NextFloat(0f, Player.AttackDelay/4);
+                int randomAttack = BadaoOrbwalkerVariables._random.Next(3, 5);
                 if ((Player.AttackDelay < 1f / 1.5f) &&
                     Utils.GameTimeTickCount + Game.Ping / 2 + 25 < Orbwalking.LastAATick + (Player.AttackDelay + randomTime) * 1000)
                     return;
-                if ((Player.AttackDelay < 1f / 1.8f) &&
+                if ((Player.AttackDelay < 1f / 2f) && (BadaoOrbwalkerVariables._autoAttackCounter % randomAttack == 0) &&
                     Utils.GameTimeTickCount + Game.Ping / 2 + 25 < Orbwalking.LastAATick + (Player.AttackDelay + randomTime) * 2 * 1000)
                     return;
                 if (Player.IssueOrder(GameObjectOrder.AttackUnit, target))
@@ -54,7 +55,7 @@ namespace BadaoHumanizedLib.BadaoOrbwalker
             if (Orbwalking.CanMove(80,true))
             {
                 int count = Player.ChampionName == "Kalista" ? 4 : 3;
-                if ((Player.AttackDelay < 1f / 1.5f) && BadaoOrbwalkerVariables._autoAttackCounter % count == 0
+                if ((Player.AttackDelay < 1f / 1.8f) && BadaoOrbwalkerVariables._autoAttackCounter % count == 0
                     && target.IsValidTarget() && Orbwalking.InAutoAttackRange(target) )
                 {
                     return;
