@@ -40,7 +40,7 @@ namespace BadaoHumanizedLib.BadaoOrbwalker
                 if ((Player.AttackDelay < 1f / 1.5f) &&
                     Utils.GameTimeTickCount + Game.Ping / 2 + 25 < Orbwalking.LastAATick + (Player.AttackDelay + randomTime) * 1000)
                     return;
-                if ((Player.AttackDelay < 1f / 2f) && (BadaoOrbwalkerVariables._autoAttackCounter % 2 == 0) &&
+                if ((Player.AttackDelay < 1f / 2f) && (BadaoOrbwalkerVariables._autoAttackCounter % 3 == 0) &&
                     Utils.GameTimeTickCount + Game.Ping / 2 + 25 < Orbwalking.LastAATick + (Player.AttackDelay + randomTime) * 2 * 1000)
                     return;
                 if (Player.IssueOrder(GameObjectOrder.AttackUnit, target))
