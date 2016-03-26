@@ -14,7 +14,7 @@ namespace BadaoKingdom
     {
         public static readonly List<string> SupportedChampion = new List<string>()
         {
-            "MissFortune","Poppy","Jhin","Shen"
+            "MissFortune","Poppy","Jhin","Shen",/*"Elise","AurelionSol",*/"Gangplank"
         };
         static void Main(string[] args)
         {
@@ -46,6 +46,12 @@ namespace BadaoKingdom
                 BadaoChampion.BadaoJhin.BadaoJhin.BadaoActivate();
             else if (ChampionName == "Shen")
                 BadaoChampion.BadaoShen.BadaoShen.BadaoActivate();
+            //else if (ChampionName == "Elise")
+            //    BadaoChampion.BadaoElise.BadaoElise.BadaoActivate();
+            //else if (ChampionName == "AurelionSol")
+            //    BadaoChampion.BadaoAurelionSol.BadaoAurelionSol.BadaoActivate();
+            else if (ChampionName == "Gangplank")
+                BadaoChampion.BadaoGangplank.BadaoGangplank.BadaoActivate();
             ;
         }
     }

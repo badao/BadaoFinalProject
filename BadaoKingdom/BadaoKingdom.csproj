@@ -56,6 +56,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSol.cs" />
+    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSolConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSolVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoElise.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseJungleClear.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseLaneClear.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseSpellsManager.cs" />
+    <Compile Include="BadaoChampion\BadaoElise\BadaoEliseVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplank.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankBarrels.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankHarass.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankJungleClear.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankLaneClear.cs" />
+    <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankVariables.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhin.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinCombo.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinConfig.cs" />
