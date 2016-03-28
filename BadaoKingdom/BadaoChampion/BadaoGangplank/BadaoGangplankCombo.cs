@@ -31,7 +31,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                     var pred = Prediction.GetPrediction(hero, 0.5f).UnitPosition;
                     if (BadaoMainVariables.Q.IsReady() && BadaoMainVariables.E.IsReady())
                     {
-                        foreach (var barrel in BadaoGangplankBarrels.QableBarrels())
+                        foreach (var barrel in BadaoGangplankBarrels.QableBarrels(600))
                         {
                             var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
                             if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 660 /*+ hero.BoundingRadius*/)
@@ -49,11 +49,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                                         Orbwalking.Move = true;
                                     });
                                     BadaoMainVariables.E.Cast(pos);
-                                    if (BadaoMainVariables.Q.Cast(barrel.Bottle) == Spell.CastStates.SuccessfullyCasted)
-                                    {
-                                        LastCondition = Environment.TickCount;
-                                        return;
-                                    }
+                                    LastCondition = Environment.TickCount;
+                                    return;
                                 }
                             }
                         }
@@ -64,7 +61,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                     var pred = Prediction.GetPrediction(hero, 0.5f).UnitPosition;
                     if (Orbwalking.CanAttack() && BadaoMainVariables.E.IsReady())
                     {
-                        foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
+                        foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels(600))
                         {
                             var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
                             if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 660 /*+ hero.BoundingRadius*/)
@@ -80,11 +77,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                                 var mbarrels = nbarrels.FirstOrDefault(x => x.Bottle.Distance(pred) <= 660);
                                 var pos = mbarrels.Bottle.Position.Extend(pred, 660);
                                 BadaoMainVariables.E.Cast(pos);
-                                if (Player.IssueOrder(GameObjectOrder.AttackUnit, barrel.Bottle))
-                                {
-                                    LastCondition = Environment.TickCount;
-                                    return;
-                                }
+                                LastCondition = Environment.TickCount;
+                                return;
                             }
                         }
                     }

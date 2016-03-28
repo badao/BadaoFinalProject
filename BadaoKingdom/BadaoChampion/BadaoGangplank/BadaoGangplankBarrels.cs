@@ -33,7 +33,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
             return
                 level3.ToList();
         }
-        public static List<Barrel> AttackableBarrels ()
+        public static List<Barrel> AttackableBarrels (int delay = 0)
         {
             var time = Player.Level >= 13 ?
                 500 :
@@ -41,14 +41,14 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                 1000 :
                 2000;
             var meelebarrels = Barrels.Where(x => Orbwalking.InAutoAttackRange(x.Bottle)
-           && (Environment.TickCount - x.CreationTime >= 2 * time - Game.Ping - Player.AttackCastDelay * 1000 + 50
-           || (Environment.TickCount - x.CreationTime >=  time - Game.Ping - Player.AttackCastDelay * 1000 + 50 && x.Bottle.Health == 2
+           && (Environment.TickCount - x.CreationTime >= 2 * time - Game.Ping - Player.AttackCastDelay * 1000 + 50 - delay
+           || (Environment.TickCount - x.CreationTime >=  time - Game.Ping - Player.AttackCastDelay * 1000 + 50  - delay && x.Bottle.Health == 2
            && Environment.TickCount - x.CreationTime <= time) ?
            true : false
            || x.Bottle.Health == 1)).ToList();
             return meelebarrels;
         }
-        public static List<Barrel> QableBarrels()
+        public static List<Barrel> QableBarrels(int delay = 0)
         {
             var time = Player.Level >= 13 ?
                 500 :
@@ -56,8 +56,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                 1000 :
                 2000;
             var qbarrels = Barrels.Where(x => BadaoMainVariables.Q.IsInRange(x.Bottle)
-           && (Environment.TickCount - x.CreationTime >= 2 * time - Game.Ping - 350 + 50
-           || (Environment.TickCount - x.CreationTime >= time - Game.Ping - 350 + 50 && x.Bottle.Health == 2
+           && (Environment.TickCount - x.CreationTime >= 2 * time - Game.Ping - 350 + 50 - delay
+           || (Environment.TickCount - x.CreationTime >= time - Game.Ping - 350 + 50 - delay && x.Bottle.Health == 2
            && Environment.TickCount - x.CreationTime < time) ?
            true : false
            || x.Bottle.Health == 1)).ToList();
