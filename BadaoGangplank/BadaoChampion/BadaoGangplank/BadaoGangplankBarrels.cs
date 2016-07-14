@@ -120,7 +120,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
         {
             if (!sender.IsMe)
                 return;
-            if (args.Slot != SpellSlot.E)
+            //Game.PrintChat(args.SData.Name.ToString());
+            if (/*args.Slot != SpellSlot.E*/ args.SData.Name != "GangplankE")
                 return;
             LastCastE = Environment.TickCount;
             LastEPos = args.End.To2D();
