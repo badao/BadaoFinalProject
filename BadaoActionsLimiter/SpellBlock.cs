@@ -30,11 +30,17 @@ namespace BadaoActionsLimiter
                 return;
             var action = Actions.FirstOrDefault(x => x.Slot == args.Slot);
             if (action == null)
+            {
                 Actions.Add(new Action() { Slot = args.Slot, Tick = Environment.TickCount });
+                CameraControling.Spellbook_OnCastSpell(sender, args);
+            }
             else
             {
                 if (Environment.TickCount - action.Tick >= 200 && !Actions.Any(x => x.Slot != args.Slot && x.Tick == Environment.TickCount))
+                {
                     action.Tick = Environment.TickCount;
+                    CameraControling.Spellbook_OnCastSpell(sender, args);
+                }
                 else
                 {
                     args.Process = false;

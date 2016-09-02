@@ -25,9 +25,11 @@ namespace BadaoActionsLimiter
             Config.AddItem(new MenuItem("DrawSpell", "Draw Spell Block").SetValue(true));
             Config.AddItem(new MenuItem("DrawAttack", "Draw Attack Block").SetValue(true));
             Config.AddItem(new MenuItem("DrawMove", "Draw Movement Block").SetValue(true));
+            Config.AddItem(new MenuItem("CameraControl", "Camera To Out-Screen Cast Position").SetValue(true));
             SpellBlock.BadaoActivate();
             AttackBlock.BadaoActivate();
             MovementBlock.BadaoActivate();
+            CameraControling.BadaoActivate();
             Drawing.OnDraw += Drawing_OnDraw;
             Game.PrintChat("Badao Actions Limiter Loaded !");
         }

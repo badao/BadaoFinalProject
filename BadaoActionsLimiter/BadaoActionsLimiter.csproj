@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clipper_library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=07aeca4266f4b547, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\clipper_library.dll</HintPath>
+    </Reference>
     <Reference Include="LeagueSharp">
       <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\LeagueSharp.dll</HintPath>
     </Reference>
@@ -55,6 +59,7 @@
   <ItemGroup>
     <Compile Include="Action.cs" />
     <Compile Include="AttackBlock.cs" />
+    <Compile Include="CameraControling.cs" />
     <Compile Include="MovementBlock.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
