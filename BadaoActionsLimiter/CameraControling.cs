@@ -18,15 +18,22 @@ namespace BadaoActionsLimiter
         {
 
         }
-
         public static void Spellbook_OnCastSpell(Spellbook sender, SpellbookCastSpellEventArgs args)
         {
             if (!Program.Config.Item("CameraControl").GetValue<bool>())
                 return;
-            if (!args.StartPosition.IsOnScreen())
+            if (args.StartPosition.Distance(ObjectManager.Player.Position) <= 20)
+                return;
+
+            Vector3 start = args.StartPosition;
+
+            if (ObjectManager.Player.ChampionName == "Yasuo" && args.Slot == SpellSlot.W)
+                start = ObjectManager.Player.Position.Extend(args.StartPosition, 250);
+
+            if (!start.IsOnScreen())
             {
                 var pos = Camera.Position;
-                Vector3 NewCameraPos = new Vector3(args.StartPosition.X + _random.Next(400), args.StartPosition.Y + _random.Next(400),Camera.Position.Z);
+                Vector3 NewCameraPos = new Vector3(start.X + _random.Next(400), start.Y + _random.Next(400),Camera.Position.Z);
                 Camera.Position = NewCameraPos;
                 Utility.DelayAction.Add(300, () => Camera.Position = pos);
             }
