@@ -36,18 +36,26 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="LeagueSharp">
-      <HintPath>E:\LeagueSharp\LeagueSharp\System\LeagueSharp.dll</HintPath>
+    <Reference Include="clipper_library, Version=1.0.0.0, Culture=neutral, PublicKeyToken=07aeca4266f4b547, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\clipper_library.dll</HintPath>
     </Reference>
-    <Reference Include="LeagueSharp.Common">
-      <HintPath>E:\LeagueSharp\LeagueSharp\System\LeagueSharp.Common.dll</HintPath>
+    <Reference Include="LeagueSharp, Version=1.0.0.25, Culture=neutral, PublicKeyToken=a41ba14f653257a6, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\LeagueSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SharpDX">
-      <HintPath>E:\LeagueSharp\LeagueSharp\System\SharpDX.dll</HintPath>
+    <Reference Include="LeagueSharp.Common, Version=1.0.0.52, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\LeagueSharp.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpDX, Version=2.6.3.0, Culture=neutral, PublicKeyToken=345b829e6e492981, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\JvRnU7UIHeR\JvRnU7UIHeR\References\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,9 +64,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSol.cs" />
-    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSolConfig.cs" />
-    <Compile Include="BadaoChampion\BadaoAurelionSol\BadaoAurelionSolVariables.cs" />
     <Compile Include="BadaoChampion\BadaoElise\BadaoElise.cs" />
     <Compile Include="BadaoChampion\BadaoElise\BadaoEliseCombo.cs" />
     <Compile Include="BadaoChampion\BadaoElise\BadaoEliseConfig.cs" />
@@ -77,6 +82,11 @@
     <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankJungleClear.cs" />
     <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankLaneClear.cs" />
     <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGraves.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesVariables.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhin.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinCombo.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinConfig.cs" />
@@ -119,6 +129,25 @@
     <Compile Include="BadaoChampion\BadaoShen\BadaoShenLaneClear.cs" />
     <Compile Include="BadaoChampion\BadaoShen\BadaoShenSword.cs" />
     <Compile Include="BadaoChampion\BadaoShen\BadaoShenVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigar.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigarCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigarConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigarHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigarLaneClear.cs" />
+    <Compile Include="BadaoChampion\BadaoVeigar\BadaoVeigarVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoAssasinate.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuo.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoClear.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoDrawing.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoFlee.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoHarass.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoLastHit.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoSwitcher.cs" />
+    <Compile Include="BadaoChampion\BadaoYasuo\BadaoYasuoVariables.cs" />
     <Compile Include="BadaoChecker.cs" />
     <Compile Include="BadaoMainVariables.cs" />
     <Compile Include="BadaoMath.cs" />
@@ -126,6 +155,18 @@
     <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorConfig.cs" />
     <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorHelper.cs" />
     <Compile Include="BadaoUtility\BadaoActivator\BadaoActivatorVariables.cs" />
+    <Compile Include="Evade\Collision.cs" />
+    <Compile Include="Evade\Config.cs" />
+    <Compile Include="Evade\EarlyEvade.cs" />
+    <Compile Include="Evade\Geometry.cs" />
+    <Compile Include="Evade\Helpers.cs" />
+    <Compile Include="Evade\Program.cs" />
+    <Compile Include="Evade\Skillshot.cs" />
+    <Compile Include="Evade\SkillshotDetector.cs" />
+    <Compile Include="Evade\SpellData.cs" />
+    <Compile Include="Evade\SpellDatabase.cs" />
+    <Compile Include="Evade\TargetedSkillShots.cs" />
+    <Compile Include="Evade\Utils.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

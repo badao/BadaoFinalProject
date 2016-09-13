@@ -14,7 +14,7 @@ namespace BadaoKingdom
     {
         public static readonly List<string> SupportedChampion = new List<string>()
         {
-            "MissFortune","Poppy","Jhin","Shen",/*"Elise","AurelionSol",*/"Gangplank"
+            "MissFortune","Poppy","Jhin","Shen",/*"Elise","AurelionSol",*/"Gangplank", /*"Graves" ,*/ /*"Veigar", */"Yasuo"
         };
         static void Main(string[] args)
         {
@@ -33,6 +33,21 @@ namespace BadaoKingdom
                 ObjectManager.Player.ChampionName + "</font>" + "<font color=\"#24ff24\"> loaded!</font>");
             BadaoChampionActivate();
             BadaoUtility.BadaoActivator.BadaoActivator.BadaoActivate();
+
+            // summoner spells
+
+            BadaoMainVariables.Ignite = ObjectManager.Player.GetSpellSlot("SummonerDot");
+            BadaoMainVariables.Flash  = ObjectManager.Player.GetSpellSlot("SummonerFlash");
+            foreach (var spells in ObjectManager.Player.Spellbook.Spells.Where(
+                x =>
+                (x.Slot == SpellSlot.Summoner1 || x.Slot == SpellSlot.Summoner2)
+                && x.Name.ToLower().Contains("smite")))
+            {
+                BadaoMainVariables.Smite = spells.Slot;
+                break;
+            }
+
+
         }
 
         private static void BadaoChampionActivate()
@@ -48,10 +63,14 @@ namespace BadaoKingdom
                 BadaoChampion.BadaoShen.BadaoShen.BadaoActivate();
             //else if (ChampionName == "Elise")
             //    BadaoChampion.BadaoElise.BadaoElise.BadaoActivate();
-            //else if (ChampionName == "AurelionSol")
-            //    BadaoChampion.BadaoAurelionSol.BadaoAurelionSol.BadaoActivate();
             else if (ChampionName == "Gangplank")
                 BadaoChampion.BadaoGangplank.BadaoGangplank.BadaoActivate();
+            //else if (ChampionName == "Graves")
+            //    BadaoChampion.BadaoGraves.BadaoGraves.BadaoActivate();
+            //else if (ChampionName == "Veigar")
+            //    BadaoChampion.BadaoVeigar.BadaoVeigar.BadaoActivate();
+            else if (ChampionName == "Yasuo")
+                BadaoChampion.BadaoYasuo.BadaoYasuo.BadaoActivate();
             ;
         }
     }

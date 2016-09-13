@@ -91,12 +91,6 @@ namespace BadaoKingdom.BadaoChampion.BadaoPoppy
                         && BadaoMainVariables.R.GetDamage(x) >= x.Health);
                     if (killableTarget != null)
                         BadaoMainVariables.R.Cast(killableTarget.Position);
-                    else
-                    {
-                        var target = TargetSelector.GetTarget(BadaoMainVariables.R.Range, TargetSelector.DamageType.Physical);
-                        if (target.BadaoIsValidTarget())
-                            BadaoMainVariables.R.Cast(target);
-                    }
                 }
             }
             if (BadaoPoppyHelper.UseRAuto3Target())

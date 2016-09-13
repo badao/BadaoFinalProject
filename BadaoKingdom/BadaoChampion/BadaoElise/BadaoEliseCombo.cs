@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
+using LeagueSharp.Common.Data;
 using SharpDX;
 using Color = System.Drawing.Color;
 
