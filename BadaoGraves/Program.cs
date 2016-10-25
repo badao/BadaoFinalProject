@@ -14,7 +14,7 @@ namespace BadaoKingdom
     {
         public static readonly List<string> SupportedChampion = new List<string>()
         {
-           "Yasuo"
+           "Graves"
         };
         static void Main(string[] args)
         {
