@@ -17,6 +17,8 @@ namespace HeavenStrikeTalon
     {
         public static void UpdateKs()
         {
+            if (Player.HasBuff("TalonRStealth"))
+                return;
             foreach (var hero in HeroManager.Enemies.Where(x => x.IsValidTarget(W.Range) && !x.IsZombie))
             {
                 if (WKs && W.IsReady() && W.GetDamage(hero)*2 >= hero.Health)
