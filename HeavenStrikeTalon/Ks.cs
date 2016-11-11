@@ -23,15 +23,6 @@ namespace HeavenStrikeTalon
                 {
                     W.Cast(hero);
                 }
-                if (RKs && R1IsReady() && R.GetDamage(hero) >= hero.Health)
-                {
-                    var pred = R.GetPrediction(hero);
-                    if (!pred.CastPosition.IsWall() && pred.Hitchance >= HitChance.Medium)
-                    {
-                        R.Cast(pred.CastPosition);
-                        LastUltPos = Player.Position.To2D();
-                    }
-                }
                 if (BotrkKs && ItemData.Blade_of_the_Ruined_King.GetItem().IsReady()
                     && ItemData.Blade_of_the_Ruined_King.GetItem().IsInRange(hero) &&
                     (Player.CalcDamage(hero, Damage.DamageType.Physical, hero.MaxHealth * 0.1) >= hero.Health
@@ -64,20 +55,6 @@ namespace HeavenStrikeTalon
                         {
                             ItemData.Ravenous_Hydra_Melee_Only.GetItem().Cast();
                         }
-                    }
-                }
-            }
-            if (Player.HasBuff("talonshadowassaultbuff"))
-            {
-                foreach (var hero in HeroManager.Enemies.Where(x => x.IsValidTarget(R.Range, true, 
-                    LastUltPos.IsValid() ? LastUltPos.To3D() : default(Vector3)) && !x.IsZombie))
-                {
-                    if (R.GetDamage(hero) >= hero.Health)
-                    {
-                        if (R2IsReady())
-                            R.Cast();
-                        else if (HasItem())
-                            CastItem();
                     }
                 }
             }

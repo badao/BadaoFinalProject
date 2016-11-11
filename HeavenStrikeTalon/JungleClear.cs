@@ -31,7 +31,7 @@ namespace HeavenStrikeTalon
                 return;
             if (QJungleClear && Q.IsReady())
             {
-                Q.Cast();
+                Q.Cast(target as Obj_AI_Base);
             }
             else if (TiamatJungleClear && HasItem())
             {
