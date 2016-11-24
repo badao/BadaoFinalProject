@@ -101,6 +101,14 @@
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinAuto.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinPing.cs" />
     <Compile Include="BadaoChampion\BadaoJhin\BadaoJhinVariables.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarina.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaCombo.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaConfig.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaFlee.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaHarass.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaVariables.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneAuto.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortune.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneCombo.cs" />
