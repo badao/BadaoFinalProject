@@ -17,7 +17,58 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
         public static void BadaoActivate()
         {
             Game.OnUpdate += Game_OnUpdate;
-            Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            //Obj_AI_Base.OnProcessSpellCast += Obj_AI_Base_OnProcessSpellCast;
+            Obj_AI_Base.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
+        }
+
+        private static void Obj_AI_Base_OnIssueOrder(Obj_AI_Base sender, GameObjectIssueOrderEventArgs args)
+        {
+            if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.LaneClear)
+                return;
+            if (Player.ManaPercent < BadaoGravesVariables.ManaJungle.GetValue<Slider>().Value)
+                return;
+            if (!sender.IsMe)
+                return;
+            if (args.Order != GameObjectOrder.AttackUnit)
+                return;
+            if (args.Target == null)
+                return;
+            if (args.Target.Team != GameObjectTeam.Neutral)
+                return;
+            if (!(args.Target is Obj_AI_Base))
+                return;
+            if (Player.Distance(args.Target.Position) > Player.BoundingRadius + Player.AttackRange + args.Target.BoundingRadius - 20)
+                return;
+
+            var target = args.Target;
+
+            Utility.DelayAction.Add(Game.Ping - Game.Ping, () =>
+            {
+                if (BadaoMainVariables.E.IsReady() && BadaoGravesVariables.JungleE.GetValue<bool>())
+                {
+                    List<Vector2> positions = new List<Vector2>();
+                    for (int i = 250; i <= 425; i += 5)
+                    {
+                        positions.Add(Player.Position.To2D().Extend(Game.CursorPos.To2D(),250));
+                    }
+                    Vector2 position = positions.OrderBy(x => x.Distance(target.Position)).FirstOrDefault();
+                    if (position.IsValid() && target.Position.To2D().Distance(position) <= Player.AttackRange + Player.BoundingRadius)
+                    {
+                        BadaoMainVariables.E.Cast(position);
+                        Utility.DelayAction.Add(0, () => Orbwalking.ResetAutoAttackTimer());
+                        //for (int i = 0; i < delay2; i = i + 5)
+                        //{
+                        //    Utility.DelayAction.Add(i, () =>
+                        //    {
+                        //        Game.SendEmote(Emote.Dance);
+                        //        Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                        //        Player.IssueOrder(GameObjectOrder.AttackUnit, target);
+                        //    });
+                        //}
+                    }
+                }
+            }
+            );
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
@@ -35,20 +86,20 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
                 {
                     if (BadaoMainVariables.E.IsReady() && BadaoGravesVariables.JungleE.GetValue<bool>())
                     {
-                        var position = Player.Position.To2D().Extend(Game.CursorPos.To2D(), BadaoMainVariables.E.Range);
+                        var position = Player.Position.To2D().Extend(Game.CursorPos.To2D(), 250/*BadaoMainVariables.E.Range*/);
                         if (args.Target.Position.To2D().Distance(position) <= -250 + Player.AttackRange + Player.BoundingRadius
                             /*&& !Utility.UnderTurret(position.To3D(), true)*/)
                         {
                             BadaoMainVariables.E.Cast(position);
-                            for (int i = 0; i < delay2; i = i + 5)
-                            {
-                                Game.SendEmote(Emote.Dance); Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                                Utility.DelayAction.Add(i, () => {
-                                    Game.SendEmote(Emote.Dance);
-                                    Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
-                                    Player.IssueOrder(GameObjectOrder.AttackUnit, args.Target);
-                                });
-                            }
+                            //for (int i = 0; i < delay2; i = i + 5)
+                            //{
+                            //    Game.SendEmote(Emote.Dance); Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                            //    Utility.DelayAction.Add(i, () => {
+                            //        Game.SendEmote(Emote.Dance);
+                            //        Player.IssueOrder(GameObjectOrder.MoveTo, Game.CursorPos);
+                            //        Player.IssueOrder(GameObjectOrder.AttackUnit, args.Target);
+                            //    });
+                            //}
 
                         }
                         else
