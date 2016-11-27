@@ -84,6 +84,7 @@
     <Compile Include="BadaoChampion\BadaoGangplank\BadaoGangplankVariables.cs" />
     <Compile Include="BadaoChampion\BadaoGraves\BadaoGraves.cs" />
     <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesAuto.cs" />
+    <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesBurst.cs" />
     <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesCombo.cs" />
     <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesConfig.cs" />
     <Compile Include="BadaoChampion\BadaoGraves\BadaoGravesHelper.cs" />

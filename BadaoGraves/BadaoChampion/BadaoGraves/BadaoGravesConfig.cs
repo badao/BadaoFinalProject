@@ -41,6 +41,11 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
             Menu ts = config.AddSubMenu(new Menu("Target Selector", "Target Selector")); ;
             TargetSelector.AddToMenu(ts);
 
+            //Burst
+            Menu Burst = config.AddSubMenu(new Menu("Burst", "Burst"));
+            BadaoGravesVariables.BurstKey = Burst.AddItem(new MenuItem("BurstKey", "BurstKey")).SetValue(new KeyBind('T', KeyBindType.Press));
+            Burst.AddItem(new MenuItem("BurstIntro", "You'll have to select a target in this mode!"));
+
             // Combo
             Menu Combo = config.AddSubMenu(new Menu("Combo", "Combo"));
             BadaoGravesVariables.ComboQ = Combo.AddItem(new MenuItem("ComboQ", "Q")).SetValue(true);

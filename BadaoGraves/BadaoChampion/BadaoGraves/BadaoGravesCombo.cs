@@ -18,10 +18,10 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
         {
             Game.OnUpdate += Game_OnUpdate;
             //Orbwalking.OnAttack += Orbwalking_OnAttack;
-            Obj_AI_Base.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
+            //Obj_AI_Base.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
         }
 
-        private static void Obj_AI_Base_OnIssueOrder(Obj_AI_Base sender, GameObjectIssueOrderEventArgs args)
+        public static void Obj_AI_Base_OnIssueOrder(Obj_AI_Base sender, GameObjectIssueOrderEventArgs args)
         {
             if (BadaoMainVariables.Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
