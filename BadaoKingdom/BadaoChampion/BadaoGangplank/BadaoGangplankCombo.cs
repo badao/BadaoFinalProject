@@ -34,25 +34,50 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                         foreach (var barrel in BadaoGangplankBarrels.QableBarrels(350))
                         {
                             var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
-                            if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 660 /*+ hero.BoundingRadius*/)
+                            if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 990 /*+ hero.BoundingRadius*/)
                                 && !nbarrels.Any(x => x.Bottle.Distance(pred) <= 330 /*+ hero.BoundingRadius*/))
                             {
-                                var mbarrels = nbarrels.FirstOrDefault(x => x.Bottle.Distance(pred) <= 660);
-                                var pos = mbarrels.Bottle.Position.Extend(pred, 660);
-                                if (Player.Distance(pos) < BadaoMainVariables.E.Range)
+                                for (int i = 990; i >= 400; i -= 20)
                                 {
-                                    Orbwalking.Attack = false;
-                                    Orbwalking.Move = false;
-                                    Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                    var mbarrels = nbarrels.Where(x => x.Bottle.Distance(pred) <= i).OrderBy(x => x.Bottle.Distance(pred));
+                                    foreach (var mbarrel in mbarrels)
                                     {
-                                        Orbwalking.Attack = true;
-                                        Orbwalking.Move = true;
-                                    });
-                                    BadaoMainVariables.E.Cast(pos);
-                                    LastCondition = Environment.TickCount;
-                                    return;
+                                        var pos = mbarrel.Bottle.Position.Extend(pred, i -330);
+                                        if (Player.Distance(pos) < BadaoMainVariables.E.Range)
+                                        {
+                                            Orbwalking.Attack = false;
+                                            Orbwalking.Move = false;
+                                            Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                            {
+                                                Orbwalking.Attack = true;
+                                                Orbwalking.Move = true;
+                                            });
+                                            BadaoMainVariables.E.Cast(pos);
+                                            LastCondition = Environment.TickCount;
+                                            return;
+                                        }
+                                    }
                                 }
+                                //var mbarrels = nbarrels.Where(x => x.Bottle.Distance(pred) <= 990).OrderBy(x => x.Bottle.Distance(pred));
+                                //foreach (var mbarrel in mbarrels)
+                                //{
+                                //    var pos = mbarrel.Bottle.Position.Extend(pred, 660);
+                                //    if (Player.Distance(pos) < BadaoMainVariables.E.Range)
+                                //    {
+                                //        Orbwalking.Attack = false;
+                                //        Orbwalking.Move = false;
+                                //        Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                //        {
+                                //            Orbwalking.Attack = true;
+                                //            Orbwalking.Move = true;
+                                //        });
+                                //        BadaoMainVariables.E.Cast(pos);
+                                //        LastCondition = Environment.TickCount;
+                                //        return;
+                                //    }
+                                //}
                             }
+
                         }
                     }
                 }
@@ -64,21 +89,42 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                         foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels(350))
                         {
                             var nbarrels = BadaoGangplankBarrels.ChainedBarrels(barrel);
-                            if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 660 /*+ hero.BoundingRadius*/)
+                            if (nbarrels.Any(x => x.Bottle.Distance(pred) <= 990 /*+ hero.BoundingRadius*/)
                                 && !nbarrels.Any(x => x.Bottle.Distance(pred) <= 330 /*+ hero.BoundingRadius*/))
                             {
-                                Orbwalking.Attack = false;
-                                Orbwalking.Move = false;
-                                Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                for (int i = 990; i >= 400; i -= 20)
                                 {
-                                    Orbwalking.Attack = true;
-                                    Orbwalking.Move = true;
-                                });
-                                var mbarrels = nbarrels.FirstOrDefault(x => x.Bottle.Distance(pred) <= 660);
-                                var pos = mbarrels.Bottle.Position.Extend(pred, 660);
-                                BadaoMainVariables.E.Cast(pos);
-                                LastCondition = Environment.TickCount;
-                                return;
+                                    var mbarrels = nbarrels.Where(x => x.Bottle.Distance(pred) <= i).OrderBy(x => x.Bottle.Distance(pred));
+                                    foreach (var mbarrel in mbarrels)
+                                    {
+                                        var pos = mbarrel.Bottle.Position.Extend(pred, i - 330);
+                                        if (Player.Distance(pos) < BadaoMainVariables.E.Range)
+                                        {
+                                            Orbwalking.Attack = false;
+                                            Orbwalking.Move = false;
+                                            Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                            {
+                                                Orbwalking.Attack = true;
+                                                Orbwalking.Move = true;
+                                            });
+                                            BadaoMainVariables.E.Cast(pos);
+                                            LastCondition = Environment.TickCount;
+                                            return;
+                                        }
+                                    }
+                                    //Orbwalking.Attack = false;
+                                    //Orbwalking.Move = false;
+                                    //Utility.DelayAction.Add(100 + Game.Ping, () =>
+                                    //{
+                                    //    Orbwalking.Attack = true;
+                                    //    Orbwalking.Move = true;
+                                    //});
+                                    //var mbarrels = nbarrels.FirstOrDefault(x => x.Bottle.Distance(pred) <= 660);
+                                    //var pos = mbarrels.Bottle.Position.Extend(pred, 660);
+                                    //BadaoMainVariables.E.Cast(pos);
+                                    //LastCondition = Environment.TickCount;
+                                    //return;
+                                }
                             }
                         }
                     }

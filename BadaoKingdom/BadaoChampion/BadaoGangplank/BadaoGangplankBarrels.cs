@@ -114,6 +114,18 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
                 if (ChainedBarrels(barrel).Count() >= 2)
                     Render.Circle.DrawCircle(barrel.Bottle.Position, 100, Color.Pink);
             }
+            //var barreled = Barrels.FirstOrDefault();
+            //if (barreled!= null)
+            //{
+            //    var barreledes = ChainedBarrels(barreled);
+            //    foreach (var barrel in barreledes)
+            //    {
+            //        Render.Circle.DrawCircle(barrel.Bottle.Position, 150, Color.Red);
+            //    }
+            //}
+            //var pred = Prediction.GetPrediction(Player, 2);
+            //Render.Circle.DrawCircle(pred.UnitPosition, 50, Color.Pink);
+            //Render.Circle.DrawCircle(pred.CastPosition, 50, Color.Yellow);
         }
 
         private static void Obj_AI_Base_OnProcessSpellCast(Obj_AI_Base sender, GameObjectProcessSpellCastEventArgs args)
