@@ -28,5 +28,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
         public static MenuItem AutoRKS;
 
         public static MenuItem BurstKey;
+
+        public static MenuItem ExtraAADelay;
     }
 }

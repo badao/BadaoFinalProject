@@ -63,6 +63,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
             Menu Auto = config.AddSubMenu(new Menu("Auto", "Auto"));
             BadaoGravesVariables.AutoSmite = Auto.AddItem(new MenuItem("AutoSmite", "Smite Baron, Dragon")).SetValue(true);
             BadaoGravesVariables.AutoRKS = Auto.AddItem(new MenuItem("AutoRKS", "R KS")).SetValue(true);
+            BadaoGravesVariables.ExtraAADelay = Auto.AddItem(new MenuItem("ExtraAADelay", "Extra AA Delay")).SetValue(new Slider(0,0,10));
             // attach to mainmenu
             config.AddToMainMenu();
         }

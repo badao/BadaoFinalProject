@@ -109,6 +109,8 @@
     <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaFlee.cs" />
     <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaHarass.cs" />
     <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaHelper.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaLaneClear.cs" />
+    <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaLastHit.cs" />
     <Compile Include="BadaoChampion\BadaoKatarina\BadaoKatarinaVariables.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortuneAuto.cs" />
     <Compile Include="BadaoChampion\BadaoMissFortune\BadaoMissFortune.cs" />

@@ -45,8 +45,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
             // Harass
             Menu Harass = config.AddSubMenu(new Menu("Harass", "Harass"));
             HarassWE = Harass.AddItem(new MenuItem("HarassWE", "W-E spin")).SetValue(true);
-            //// LaneClear
-            //Menu LaneClear = config.AddSubMenu(new Menu("LaneClear", "LaneClear"));
+
+            // LaneClear
+            Menu LaneClear = config.AddSubMenu(new Menu("LaneClear", "LaneClear"));
+            LaneClearQ = LaneClear.AddItem(new MenuItem("LaneClearQ", "Q")).SetValue(true);
+            LaneClearW = LaneClear.AddItem(new MenuItem("LaneClearW", "W")).SetValue(true);
+
+            // LastHit
+            Menu LastHit = config.AddSubMenu(new Menu("LastHit", "LastHit"));
+            LastHitQ = LastHit.AddItem(new MenuItem("LastHitQ", "Q")).SetValue(true);
 
             //// JungleClear
             //Menu JungleClear = config.AddSubMenu(new Menu("JungleClear", "JungleClear"));

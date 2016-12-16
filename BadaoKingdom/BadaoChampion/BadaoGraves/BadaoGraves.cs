@@ -11,6 +11,7 @@ using Color = System.Drawing.Color;
 namespace BadaoKingdom.BadaoChampion.BadaoGraves
 {
     using static BadaoGravesVariables;
+    using static BadaoMainVariables;
     public static class BadaoGraves
     {
         public static void BadaoActivate()
@@ -22,6 +23,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
             BadaoGravesJungle.BadaoActivate();
             Spellbook.OnCastSpell += Spellbook_OnCastSpell;
             Obj_AI_Base.OnIssueOrder += Obj_AI_Base_OnIssueOrder;
+            //Game.OnUpdate += Game_OnUpdate;
         }
 
         private static void Obj_AI_Base_OnIssueOrder(Obj_AI_Base sender, GameObjectIssueOrderEventArgs args)
@@ -36,12 +38,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoGraves
                 return;
             if (!(args.Target is Obj_AI_Base))
                 return;
-            if (Player.Distance(args.Target.Position) > Player.BoundingRadius + Player.AttackRange + args.Target.BoundingRadius - 20)
+            if (Player.Position.To2D().Distance(args.Target.Position.To2D()) > Player.BoundingRadius + Player.AttackRange + args.Target.BoundingRadius - 20 && E.IsReady())
             {
                 args.Process = false;
                 return;
             }
-            if (!BadaoGravesHelper.CanAttack())
+            if (!BadaoGravesHelper.CanAttack() && E.IsReady())
             {
                 args.Process = false;
                 return;

@@ -36,7 +36,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
 
         public static MenuItem HarassWE;
 
-        
+        public static MenuItem LastHitQ;
+
+        public static MenuItem LaneClearQ;
+        public static MenuItem LaneClearW;
+
+
     }
     public class KatarinaDagger
     {

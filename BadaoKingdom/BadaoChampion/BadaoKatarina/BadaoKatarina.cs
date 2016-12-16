@@ -22,6 +22,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
             BadaoKatarinaCombo.BadaoActivate();
             BadaoKatarinaHarass.BadaoAcitvate();
             BadaoKatarinaFlee.BadaoActivate();
+            BadaoKatarinaLastHit.BadaoActivate();
+            BadaoKatarinaLaneClear.BadaoActivate();
 
             GameObject.OnCreate += GameObject_OnCreate;
             GameObject.OnDelete += GameObject_OnDelete;
