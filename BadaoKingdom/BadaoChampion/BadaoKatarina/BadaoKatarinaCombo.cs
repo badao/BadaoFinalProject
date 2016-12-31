@@ -23,8 +23,24 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
 
         private static void Game_OnUpdate(EventArgs args)
         {
+            // blocking AA
+            if (ComboDontAttack.GetValue<bool>() && Orbwalker.ActiveMode == Orbwalking.OrbwalkingMode.Combo)
+            {
+                if (Daggers.Any(x => x.Dagger.Position.Distance(Player.Position) <= 150 + ComboDontAttackRange.GetValue<Slider>().Value)
+                    && !Daggers.Any(x => x.Dagger.Position.Distance(Player.Position) <= 150))
+                    Orbwalking.Attack = false;
+                else
+                    Orbwalking.Attack = true;
+
+            }
+            else
+            {
+                Orbwalking.Attack = true;
+            }
+
             if (Orbwalker.ActiveMode != Orbwalking.OrbwalkingMode.Combo)
                 return;
+
             // cancel R
             if (ComboCancelRNoTarget.GetValue<bool>() && Player.IsChannelingImportantSpell() 
                 && Player.CountEnemiesInRange(R.Range) == 0 && Environment.TickCount >= LastRMis)
@@ -75,6 +91,15 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
                 if (target.IsValidTarget())
                 {
                     ItemData.Hextech_Gunblade.GetItem().Cast(target);
+                }
+            }
+            //cutlass
+            if (ItemData.Bilgewater_Cutlass.GetItem().IsReady())
+            {
+                var target = TargetSelector.GetTarget(550, TargetSelector.DamageType.Magical);
+                if (target.IsValidTarget())
+                {
+                    ItemData.Bilgewater_Cutlass.GetItem().Cast(target);
                 }
             }
             // W

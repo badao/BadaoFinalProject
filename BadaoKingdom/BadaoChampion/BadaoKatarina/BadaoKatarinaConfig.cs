@@ -41,6 +41,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
             Menu Combo = config.AddSubMenu(new Menu("Combo", "Combo"));
             ComboCancelRForKS = Combo.AddItem(new MenuItem("ComboCancelRForKS", "Cancel R for KS")).SetValue(true);
             ComboCancelRNoTarget = Combo.AddItem(new MenuItem("ComboCancelRNoTarget", "Cancel R if no target")).SetValue(true);
+            ComboDontAttack = Combo.AddItem(new MenuItem("ComboDontAttack", "Block AA if near a dagger")).SetValue(true);
+            ComboDontAttackRange = Combo.AddItem(new MenuItem("ComboDontAttackRange", "Range")).SetValue(new Slider(150,0,200));
 
             // Harass
             Menu Harass = config.AddSubMenu(new Menu("Harass", "Harass"));

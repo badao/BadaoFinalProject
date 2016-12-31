@@ -31,6 +31,8 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
 
         public static MenuItem ComboCancelRForKS;
         public static MenuItem ComboCancelRNoTarget;
+        public static MenuItem ComboDontAttack;
+        public static MenuItem ComboDontAttackRange;
 
         public static MenuItem AutoKs;
 
