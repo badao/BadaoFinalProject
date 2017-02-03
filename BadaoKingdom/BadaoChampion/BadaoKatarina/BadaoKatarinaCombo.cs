@@ -162,10 +162,12 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
             // R
             if (R.Level >= 1 && R.Instance.CooldownExpires <= Game.Time)
             {
+                //Game.PrintChat("1");
                 {
                     var expires = (E.Instance.CooldownExpires - Game.Time) * 1000;
-                    if (E.IsReady() || expires < 750)
+                    if (E.IsReady() || expires < 50)
                     {
+                        //Game.PrintChat("2");
                         var target = TargetSelector.GetTarget(E.Range, TargetSelector.DamageType.Magical);
                         if (target.IsValidTarget())
                         {
@@ -175,6 +177,7 @@ namespace BadaoKingdom.BadaoChampion.BadaoKatarina
                     }
                     else if (R.IsReady())
                     {
+                        //Game.PrintChat("3");
                         var target = TargetSelector.GetTarget(R.Range - 200, TargetSelector.DamageType.Magical);
                         if (target.IsValidTarget())
                         {
