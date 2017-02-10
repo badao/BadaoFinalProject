@@ -16,6 +16,28 @@ namespace BadaoKingdom.BadaoChampion.BadaoGangplank
         public static void BadaoActivate()
         {
             Game.OnUpdate += Game_OnUpdate;
+            Orbwalking.BeforeAttack += Orbwalking_BeforeAttack;
+        }
+ 
+        static void Orbwalking_BeforeAttack(Orbwalking.BeforeAttackEventArgs args)
+        {
+            if (!args.Unit.IsMe)
+                return;
+            foreach (var barrel in BadaoGangplankBarrels.AttackableBarrels())
+            {
+                if (barrel.Bottle.NetworkId.Equals(args.Target.NetworkId))
+                {
+                    switch (Orbwalking.Orbwalker.Instances.First().ActiveMode)
+                    {
+                            case Orbwalking.OrbwalkingMode.LaneClear:
+                            case Orbwalking.OrbwalkingMode.LastHit:
+                            case Orbwalking.OrbwalkingMode.Mixed:
+                            args.Process = false;
+                            break;
+                    }
+                }
+                    
+            }
         }
 
         private static void Game_OnUpdate(EventArgs args)
